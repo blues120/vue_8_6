@@ -29,18 +29,34 @@
             <el-form-item>
               <el-button class="login-btn-submit" type="primary" @click="dataFormSubmit()">登录</el-button>
             </el-form-item>
+            <el-row>
+              <el-col :span="12" >
+                <el-button  type="primary" @click="registerUser()">注册</el-button>
+              </el-col>
+              <el-col :span="12" >
+                <el-button  style="float: right" type="primary" @click="forgetPassword()">忘记密码</el-button>
+              </el-col>
+            </el-row>
+
+
           </el-form>
         </div>
       </div>
     </div>
+    <register v-if="registerVisiable" ref="register" ></register>
+    <forget v-if="forgetVisiable" ref="forget" ></forget>
   </div>
 </template>
 
 <script>
   import { getUUID } from '@/utils'
+  import register from './register'
+  import forget from './forgetPassword'
   export default {
     data () {
       return {
+        registerVisiable: false,
+        forgetVisiable: false,
         dataForm: {
           userName: '',
           password: '',
@@ -64,7 +80,23 @@
     created () {
       this.getCaptcha()
     },
+    components: {
+      register,
+      forget
+    },
     methods: {
+      forgetPassword () {
+        this.forgetVisiable = true
+        this.$nextTick(() => {
+          this.$refs.forget.init()
+        })
+      },
+      registerUser () {
+        this.registerVisiable = true
+        this.$nextTick(() => {
+          this.$refs.register.init()
+        })
+      },
       // 提交表单
       dataFormSubmit () {
         this.$refs['dataForm'].validate((valid) => {
