@@ -65,9 +65,7 @@
 
       },
       init () {
-
         this.visible = true
-
       },
       // 表单提交
       dataFormSubmit () {

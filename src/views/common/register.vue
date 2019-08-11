@@ -72,14 +72,12 @@
         }).then(({data}) => {
           debugger
           if (data && data.code === 0) {
-
+            this.$alert('验证码发送成功')
           }
         })
       },
       init () {
-
         this.visible = true
-
       },
       // 表单提交
       dataFormSubmit () {
