@@ -31,7 +31,7 @@
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="visible = false">取消</el-button>
-      <el-button type="primary" @click="dataFormSubmit()">确定</el-button>
+      <el-button type="primary" @click="registerClick()">确定</el-button>
     </span>
   </el-dialog>
 </template>
@@ -61,6 +61,32 @@
       }
     },
     methods: {
+      registerClick () {
+        if (this.dataForm.password !== this.dataForm.password) {
+          this.$message.error('密码不一致')
+          return
+        }
+        if (this.dataForm.username === '') {
+          this.dataForm.username = this.dataForm.email
+        }
+        this.$http({
+          url: this.$http.adornUrl(`/sys/register`),
+          method: 'post',
+          data: this.$http.adornData({
+            'email': this.dataForm.email || undefined,
+            'username': this.dataForm.username,
+            'password': this.dataForm.password,
+            'code': this.dataForm.code
+          })
+        }).then(({data}) => {
+          if (data && data.code === 0) {
+            this.visible = false
+            this.$alert('register success ,please login')
+          } else {
+            this.$message.error(data.msg)
+          }
+        })
+      },
       sendVerify () {
         this.$http({
           url: this.$http.adornUrl(`/sys/sendEmail`),
@@ -70,7 +96,6 @@
             'type': 1
           }
         }).then(({data}) => {
-          debugger
           if (data && data.code === 0) {
             this.$alert('验证码发送成功')
           }

@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    :title="注册用户"
+    title="forget password"
     :close-on-click-modal="false"
     :visible.sync="visible">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="200px">
@@ -15,23 +15,23 @@
         </el-row>
 
       </el-form-item>
-      <el-form-item label="邮箱验证码" prop="remark">
-        <el-input v-model="dataForm.remark" placeholder="邮箱验证码"></el-input>
+      <el-form-item label="邮箱验证码" prop="code">
+        <el-input v-model="dataForm.code" placeholder="邮箱验证码"></el-input>
       </el-form-item>
 
-      <el-form-item label="昵称" prop="paramValue">
-        <el-input v-model="dataForm.paramValue" placeholder="英文+数字"></el-input>
+      <!--<el-form-item label="昵称" prop="username">-->
+        <!--<el-input v-model="dataForm.username" placeholder="英文+数字"></el-input>-->
+      <!--</el-form-item>-->
+      <el-form-item label="密码" prop="password">
+        <el-input v-model="dataForm.password" placeholder="密码"></el-input>
       </el-form-item>
-      <el-form-item label="密码" prop="remark">
-        <el-input v-model="dataForm.remark" placeholder="密码"></el-input>
-      </el-form-item>
-      <el-form-item label="重复密码" prop="remark">
-        <el-input v-model="dataForm.remark" placeholder="重复密码"></el-input>
+      <el-form-item label="重复密码" prop="secondPassword">
+        <el-input v-model="dataForm.secondPassword" placeholder="重复密码"></el-input>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="visible = false">取消</el-button>
-      <el-button type="primary" @click="dataFormSubmit()">确定</el-button>
+      <el-button type="primary" @click="registerClick()">确定</el-button>
     </span>
   </el-dialog>
 </template>
@@ -45,7 +45,7 @@
         visible: false,
         dataForm: {
           email: '',
-          nickName: '',
+          // username: '',
           password: '',
           secondPassword: '',
           code: ''
@@ -61,8 +61,45 @@
       }
     },
     methods: {
+      registerClick () {
+        if (this.dataForm.password !== this.dataForm.password) {
+          this.$message.error('密码不一致')
+          return
+        }
+        // if (this.dataForm.username === '') {
+        //   this.dataForm.username = this.dataForm.email
+        // }
+        this.$http({
+          url: this.$http.adornUrl(`/sys/forget`),
+          method: 'post',
+          data: this.$http.adornData({
+            'email': this.dataForm.email || undefined,
+            'username': 'test',
+            'password': this.dataForm.password,
+            'code': this.dataForm.code
+          })
+        }).then(({data}) => {
+          if (data && data.code === 0) {
+            this.visible = false
+            this.$alert('password reset success')
+          } else {
+            this.$message.error(data.msg)
+          }
+        })
+      },
       sendVerify () {
-
+        this.$http({
+          url: this.$http.adornUrl(`/sys/sendEmail`),
+          method: 'get',
+          params: {
+            'email': this.dataForm.email,
+            'type': 1
+          }
+        }).then(({data}) => {
+          if (data && data.code === 0) {
+            this.$alert('验证码发送成功')
+          }
+        })
       },
       init () {
         this.visible = true
