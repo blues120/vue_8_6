@@ -1,7 +1,7 @@
 <template>
   <div class="mod-demo-echarts">
     <el-alert
-      title="提示："
+      title="alert："
       type="warning"
       :closable="false">
       <div slot-scope="description">

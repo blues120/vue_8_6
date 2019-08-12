@@ -180,9 +180,9 @@
         var ids = id ? [id] : this.dataListSelections.map(item => {
           return item.jobId
         })
-        this.$confirm(`确定对[id=${ids.join(',')}]进行[${id ? '删除' : '批量删除'}]操作?`, '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm(`make sure对[id=${ids.join(',')}]进行[${id ? '删除' : '批量删除'}]操作?`, 'alert', {
+          confirmButtonText: 'make sure',
+          cancelButtonText: 'cancel',
           type: 'warning'
         }).then(() => {
           this.$http({
@@ -192,7 +192,7 @@
           }).then(({data}) => {
             if (data && data.code === 0) {
               this.$message({
-                message: '操作成功',
+                message: 'operator ok',
                 type: 'success',
                 duration: 1500,
                 onClose: () => {
@@ -210,9 +210,9 @@
         var ids = id ? [id] : this.dataListSelections.map(item => {
           return item.jobId
         })
-        this.$confirm(`确定对[id=${ids.join(',')}]进行[${id ? '暂停' : '批量暂停'}]操作?`, '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm(`make sure对[id=${ids.join(',')}]进行[${id ? '暂停' : '批量暂停'}]操作?`, 'alert', {
+          confirmButtonText: 'make sure',
+          cancelButtonText: 'cancel',
           type: 'warning'
         }).then(() => {
           this.$http({
@@ -222,7 +222,7 @@
           }).then(({data}) => {
             if (data && data.code === 0) {
               this.$message({
-                message: '操作成功',
+                message: 'operator ok',
                 type: 'success',
                 duration: 1500,
                 onClose: () => {
@@ -240,9 +240,9 @@
         var ids = id ? [id] : this.dataListSelections.map(item => {
           return item.jobId
         })
-        this.$confirm(`确定对[id=${ids.join(',')}]进行[${id ? '恢复' : '批量恢复'}]操作?`, '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm(`make sure对[id=${ids.join(',')}]进行[${id ? '恢复' : '批量恢复'}]操作?`, 'alert', {
+          confirmButtonText: 'make sure',
+          cancelButtonText: 'cancel',
           type: 'warning'
         }).then(() => {
           this.$http({
@@ -252,7 +252,7 @@
           }).then(({data}) => {
             if (data && data.code === 0) {
               this.$message({
-                message: '操作成功',
+                message: 'operator ok',
                 type: 'success',
                 duration: 1500,
                 onClose: () => {
@@ -270,9 +270,9 @@
         var ids = id ? [id] : this.dataListSelections.map(item => {
           return item.jobId
         })
-        this.$confirm(`确定对[id=${ids.join(',')}]进行[${id ? '立即执行' : '批量立即执行'}]操作?`, '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm(`make sure对[id=${ids.join(',')}]进行[${id ? '立即执行' : '批量立即执行'}]操作?`, 'alert', {
+          confirmButtonText: 'make sure',
+          cancelButtonText: 'cancel',
           type: 'warning'
         }).then(() => {
           this.$http({
@@ -282,7 +282,7 @@
           }).then(({data}) => {
             if (data && data.code === 0) {
               this.$message({
-                message: '操作成功',
+                message: 'operator ok',
                 type: 'success',
                 duration: 1500,
                 onClose: () => {

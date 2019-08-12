@@ -1966,7 +1966,7 @@
                         ERROR:         3,
                         // 上传成功
                         COMPLETE:     4,
-                        // 上传取消
+                        // 上传cancel
                         CANCELLED:     5
                     }
              */
@@ -2010,7 +2010,7 @@
             PROGRESS:   'progress',    // 上传中
             ERROR:      'error',    // 上传出错，可重试
             COMPLETE:   'complete',    // 上传完成。
-            CANCELLED:  'cancelled',    // 上传取消。
+            CANCELLED:  'cancelled',    // 上传cancel。
             INTERRUPT:  'interrupt',    // 上传中断，可续传。
             INVALID:    'invalid'    // 文件不合格，不能重试上传。
         };
@@ -2858,7 +2858,7 @@
                 this.__tick = Base.bindFn( this._tick, this );
     
                 owner.on( 'uploadComplete', function( file ) {
-                    // 把其他块取消了。
+                    // 把其他块cancel了。
                     file.blocks && $.each( file.blocks, function( _, v ) {
                         v.transport && (v.transport.abort(), v.transport.destroy());
                         delete v.transport;

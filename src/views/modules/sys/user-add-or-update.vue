@@ -7,14 +7,14 @@
       <el-form-item label="用户名" prop="userName">
         <el-input v-model="dataForm.userName" placeholder="登录帐号"></el-input>
       </el-form-item>
-      <el-form-item label="密码" prop="password" :class="{ 'is-required': !dataForm.id }">
-        <el-input v-model="dataForm.password" type="password" placeholder="密码"></el-input>
+      <el-form-item label="password" prop="password" :class="{ 'is-required': !dataForm.id }">
+        <el-input v-model="dataForm.password" type="password" placeholder="password"></el-input>
       </el-form-item>
       <el-form-item label="确认密码" prop="comfirmPassword" :class="{ 'is-required': !dataForm.id }">
         <el-input v-model="dataForm.comfirmPassword" type="password" placeholder="确认密码"></el-input>
       </el-form-item>
-      <el-form-item label="邮箱" prop="email">
-        <el-input v-model="dataForm.email" placeholder="邮箱"></el-input>
+      <el-form-item label=" email" prop="email">
+        <el-input v-model="dataForm.email" placeholder=" email"></el-input>
       </el-form-item>
       <el-form-item label="手机号" prop="mobile">
         <el-input v-model="dataForm.mobile" placeholder="手机号"></el-input>
@@ -32,8 +32,8 @@
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="visible = false">取消</el-button>
-      <el-button type="primary" @click="dataFormSubmit()">确定</el-button>
+      <el-button @click="visible = false">cancel</el-button>
+      <el-button type="primary" @click="dataFormSubmit()">make sure</el-button>
     </span>
   </el-dialog>
 </template>
@@ -160,7 +160,7 @@
             }).then(({data}) => {
               if (data && data.code === 0) {
                 this.$message({
-                  message: '操作成功',
+                  message: 'operator ok',
                   type: 'success',
                   duration: 1500,
                   onClose: () => {

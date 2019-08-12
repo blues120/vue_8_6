@@ -1,6 +1,6 @@
 <template>
   <div class="mod-home">
-    <h3>项目介绍</h3>
+    <h3>hello</h3>
 
   </div>
 </template>

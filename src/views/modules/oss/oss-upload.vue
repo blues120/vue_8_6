@@ -49,9 +49,9 @@
         this.successNum++
         if (response && response.code === 0) {
           if (this.num === this.successNum) {
-            this.$confirm('操作成功, 是否继续操作?', '提示', {
-              confirmButtonText: '确定',
-              cancelButtonText: '取消',
+            this.$confirm('操作成功, 是否继续操作?', 'alert', {
+              confirmButtonText: 'make sure',
+              cancelButtonText: 'cancel',
               type: 'warning'
             }).catch(() => {
               this.visible = false

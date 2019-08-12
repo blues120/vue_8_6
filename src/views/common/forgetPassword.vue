@@ -4,34 +4,34 @@
     :close-on-click-modal="false"
     :visible.sync="visible">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="200px">
-      <el-form-item label="邮箱" prop="email">
+      <el-form-item label=" email" prop="email">
         <el-row>
           <el-row :span="20">
-            <el-input v-model="dataForm.email" placeholder="需输入邮箱"></el-input>
+            <el-input v-model="dataForm.email" placeholder="please input email"></el-input>
           </el-row>
           <el-row :span="4">
-            <el-button  type="primary" @click="sendVerify()">发送验证码</el-button>
+            <el-button  type="primary" @click="sendVerify()">send  code</el-button>
           </el-row>
         </el-row>
 
       </el-form-item>
-      <el-form-item label="邮箱验证码" prop="code">
-        <el-input v-model="dataForm.code" placeholder="邮箱验证码"></el-input>
+      <el-form-item label="email verify code" prop="code">
+        <el-input v-model="dataForm.code" placeholder="email verify code"></el-input>
       </el-form-item>
 
       <!--<el-form-item label="昵称" prop="username">-->
         <!--<el-input v-model="dataForm.username" placeholder="英文+数字"></el-input>-->
       <!--</el-form-item>-->
-      <el-form-item label="密码" prop="password">
-        <el-input v-model="dataForm.password" placeholder="密码"></el-input>
+      <el-form-item label="password" prop="password">
+        <el-input v-model="dataForm.password" placeholder="password"></el-input>
       </el-form-item>
-      <el-form-item label="重复密码" prop="secondPassword">
-        <el-input v-model="dataForm.secondPassword" placeholder="重复密码"></el-input>
+      <el-form-item label="reset password" prop="secondPassword">
+        <el-input v-model="dataForm.secondPassword" placeholder="reset password"></el-input>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="visible = false">取消</el-button>
-      <el-button type="primary" @click="registerClick()">确定</el-button>
+      <el-button @click="visible = false">cancel</el-button>
+      <el-button type="primary" @click="registerClick()">make sure</el-button>
     </span>
   </el-dialog>
 </template>
@@ -52,10 +52,10 @@
         },
         dataRule: {
           email: [
-            { required: true, message: '参数名不能为空', trigger: 'blur' }
+            { required: true, message: 'params not empty', trigger: 'blur' }
           ],
           code: [
-            { required: true, message: '参数值不能为空', trigger: 'blur' }
+            { required: true, message: 'param not empty', trigger: 'blur' }
           ]
         }
       }
@@ -63,7 +63,7 @@
     methods: {
       registerClick () {
         if (this.dataForm.password !== this.dataForm.password) {
-          this.$message.error('密码不一致')
+          this.$message.error('password not the same second')
           return
         }
         // if (this.dataForm.username === '') {
@@ -97,7 +97,7 @@
           }
         }).then(({data}) => {
           if (data && data.code === 0) {
-            this.$alert('验证码发送成功')
+            this.$alert('send success')
           }
         })
       },
@@ -120,7 +120,7 @@
             }).then(({data}) => {
               if (data && data.code === 0) {
                 this.$message({
-                  message: '操作成功',
+                  message: 'operator ok',
                   type: 'success',
                   duration: 1500,
                   onClose: () => {

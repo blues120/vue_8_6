@@ -3,7 +3,7 @@
     class="site-wrapper"
     :class="{ 'site-sidebar--fold': sidebarFold }"
     v-loading.fullscreen.lock="loading"
-    element-loading-text="拼命加载中">
+    element-loading-text="loding">
     <template v-if="!loading">
       <main-navbar />
       <main-sidebar />
@@ -44,6 +44,10 @@
       userName: {
         get () { return this.$store.state.user.name },
         set (val) { this.$store.commit('user/updateName', val) }
+      },
+      userRole: {
+        get () { return this.$store.state.user.role },
+        set (val) { this.$store.commit('user/updateRole', val) }
       }
     },
     created () {
@@ -71,6 +75,7 @@
             this.loading = false
             this.userId = data.user.userId
             this.userName = data.user.username
+            this.userRole = data.role
           }
         })
       }

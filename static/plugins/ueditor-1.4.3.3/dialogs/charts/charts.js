@@ -291,7 +291,7 @@ function getUserConfig () {
             suffix: form[ 'unit' ].value,
             //数据对齐方式
             tableDataFormat: getTableDataFormat (),
-            //饼图提示文字
+            //饼图alert文字
             tip: $( "#tipInput" ).val()
         };
 

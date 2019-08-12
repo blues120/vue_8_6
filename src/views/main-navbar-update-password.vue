@@ -18,8 +18,8 @@
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="visible = false">取消</el-button>
-      <el-button type="primary" @click="dataFormSubmit()">确定</el-button>
+      <el-button @click="visible = false">cancel</el-button>
+      <el-button type="primary" @click="dataFormSubmit()">make sure</el-button>
     </span>
   </el-dialog>
 </template>
@@ -30,7 +30,7 @@
     data () {
       var validateConfirmPassword = (rule, value, callback) => {
         if (this.dataForm.newPassword !== value) {
-          callback(new Error('确认密码与新密码不一致'))
+          callback(new Error('确认密码与新password not the same second'))
         } else {
           callback()
         }
@@ -87,7 +87,7 @@
             }).then(({data}) => {
               if (data && data.code === 0) {
                 this.$message({
-                  message: '操作成功',
+                  message: 'operator ok',
                   type: 'success',
                   duration: 1500,
                   onClose: () => {

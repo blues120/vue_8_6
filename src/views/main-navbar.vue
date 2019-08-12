@@ -3,7 +3,7 @@
     <div class="site-navbar__header">
       <h1 class="site-navbar__brand" @click="$router.push({ name: 'home' })">
         <a class="site-navbar__brand-lg" href="javascript:;">任务分发平台</a>
-        <a class="site-navbar__brand-mini" href="javascript:;">任务</a>
+        <a class="site-navbar__brand-mini" href="javascript:;">task</a>
       </h1>
     </div>
     <div class="site-navbar__body clearfix">
@@ -25,24 +25,18 @@
           </template>
         </el-menu-item>
         <el-menu-item index="2">
-          <el-badge value="hot">
-            <a href="//www.renren.io/" target="_blank">官方社区</a>
-          </el-badge>
+          {{ 'role:' + userRole}}
         </el-menu-item>
-        <el-submenu index="3">
-          <template slot="title">Git源码</template>
-          <el-menu-item index="2-1"><a href="//github.com/daxiongYang/renren-fast-vue" target="_blank">前端</a></el-menu-item>
-          <el-menu-item index="2-2"><a href="//git.oschina.net/renrenio/renren-fast" target="_blank">后台</a></el-menu-item>
-          <el-menu-item index="2-3"><a href="//git.oschina.net/renrenio/renren-generator" target="_blank">代码生成器</a></el-menu-item>
-        </el-submenu>
+
+
         <el-menu-item class="site-navbar__avatar" index="3">
           <el-dropdown :show-timeout="0" placement="bottom">
             <span class="el-dropdown-link">
-              <img src="~@/assets/img/avatar.png" :alt="userName">{{ userName }}
+              <img src="~@/assets/img/avatar.png" :alt="userName">{{ userName}}
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click.native="updatePasswordHandle()">修改密码</el-dropdown-item>
-              <el-dropdown-item @click.native="logoutHandle()">退出</el-dropdown-item>
+              <el-dropdown-item @click.native="updatePasswordHandle()">repair password </el-dropdown-item>
+              <el-dropdown-item @click.native="logoutHandle()">login out</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </el-menu-item>
@@ -79,6 +73,10 @@
       },
       userName: {
         get () { return this.$store.state.user.name }
+      },
+      userRole: {
+        get () { return this.$store.state.user.role },
+        set (val) { this.$store.commit('user/updateRole', val) }
       }
     },
     methods: {
@@ -91,9 +89,9 @@
       },
       // 退出
       logoutHandle () {
-        this.$confirm(`确定进行[退出]操作?`, '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm(`make sure login out?`, 'alert', {
+          confirmButtonText: 'make sure',
+          cancelButtonText: 'cancel',
           type: 'warning'
         }).then(() => {
           this.$http({

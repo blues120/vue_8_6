@@ -15,8 +15,8 @@
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="visible = false">取消</el-button>
-      <el-button type="primary" @click="dataFormSubmit()">确定</el-button>
+      <el-button @click="visible = false">cancel</el-button>
+      <el-button type="primary" @click="dataFormSubmit()">make sure</el-button>
     </span>
   </el-dialog>
 </template>
@@ -37,7 +37,7 @@
             { required: true, message: '参数名不能为空', trigger: 'blur' }
           ],
           paramValue: [
-            { required: true, message: '参数值不能为空', trigger: 'blur' }
+            { required: true, message: 'param not empty', trigger: 'blur' }
           ]
         }
       }
@@ -79,7 +79,7 @@
             }).then(({data}) => {
               if (data && data.code === 0) {
                 this.$message({
-                  message: '操作成功',
+                  message: 'operator ok',
                   type: 'success',
                   duration: 1500,
                   onClose: () => {

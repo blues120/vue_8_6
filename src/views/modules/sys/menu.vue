@@ -122,9 +122,9 @@
       },
       // 删除
       deleteHandle (id) {
-        this.$confirm(`确定对[id=${id}]进行[删除]操作?`, '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm(`make sure对[id=${id}]进行[删除]操作?`, 'alert', {
+          confirmButtonText: 'make sure',
+          cancelButtonText: 'cancel',
           type: 'warning'
         }).then(() => {
           this.$http({
@@ -134,7 +134,7 @@
           }).then(({data}) => {
             if (data && data.code === 0) {
               this.$message({
-                message: '操作成功',
+                message: 'operator ok',
                 type: 'success',
                 duration: 1500,
                 onClose: () => {
