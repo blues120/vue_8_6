@@ -42,7 +42,7 @@
         </el-menu-item>
       </el-menu>
     </div>
-    <!-- 弹窗, 修改密码 -->
+    <!-- 弹窗, edit密码 -->
     <update-password v-if="updatePassowrdVisible" ref="updatePassowrd"></update-password>
   </nav>
 </template>
@@ -80,7 +80,7 @@
       }
     },
     methods: {
-      // 修改密码
+      // edit密码
       updatePasswordHandle () {
         this.updatePassowrdVisible = true
         this.$nextTick(() => {

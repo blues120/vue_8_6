@@ -37,7 +37,7 @@ function addOkListener() {
 			for (var j = 0,url; url = imageUrls[j++];) {
 				if (src.indexOf(url.original.replace(" ","")) != -1) {
 					img.src = urlPrefix + url.url;
-					img.setAttribute("_src", urlPrefix + url.url);  //同时修改"_src"属性
+					img.setAttribute("_src", urlPrefix + url.url);  //同时edit"_src"属性
 					img.setAttribute("title",url.title);
                     domUtils.removeAttributes(img, ["word_img","style","width","height"]);
 					editor.fireEvent("selectionchange");
@@ -81,7 +81,7 @@ function showLocalPath(id) {
 }
 
 function createFlashUploader(opt, callbacks) {
-    //由于lang.flashI18n是静态属性，不可以直接进行修改，否则会影响到后续内容
+    //由于lang.flashI18n是静态属性，不可以直接进行edit，否则会影响到后续内容
     var i18n = utils.extend({},lang.flashI18n);
     //处理图片资源地址的编码，补全等问题
     for(var i in i18n){

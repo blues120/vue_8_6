@@ -80,7 +80,7 @@
       this.routeHandle(this.$route)
     },
     methods: {
-      // 路由操作
+      // 路由operator
       routeHandle (route) {
         if (route.meta.isTab) {
           // tab选中, 不存在先添加

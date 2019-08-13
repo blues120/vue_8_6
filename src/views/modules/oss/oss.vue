@@ -4,7 +4,7 @@
       <el-form-item>
         <el-button type="primary" @click="configHandle()">云存储配置</el-button>
         <el-button type="primary" @click="uploadHandle()">上传文件</el-button>
-        <el-button type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
+        <el-button type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">batch delete</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -44,9 +44,9 @@
         header-align="center"
         align="center"
         width="150"
-        label="操作">
+        label="operator">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="deleteHandle(scope.row.id)">删除</el-button>
+          <el-button type="text" size="small" @click="deleteHandle(scope.row.id)">delete</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -141,12 +141,12 @@
           this.$refs.upload.init()
         })
       },
-      // 删除
+      // delete
       deleteHandle (id) {
         var ids = id ? [id] : this.dataListSelections.map(item => {
           return item.id
         })
-        this.$confirm(`make sure对[id=${ids.join(',')}]进行[${id ? '删除' : '批量删除'}]操作?`, 'alert', {
+        this.$confirm(`make sure对[id=${ids.join(',')}]进行[${id ? 'delete' : 'batch delete'}]operator?`, 'alert', {
           confirmButtonText: 'make sure',
           cancelButtonText: 'cancel',
           type: 'warning'

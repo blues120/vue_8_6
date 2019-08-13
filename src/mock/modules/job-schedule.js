@@ -63,7 +63,7 @@ export function add () {
   }
 }
 
-// 修改定时任务
+// edit定时任务
 export function update () {
   return {
     // isOpen: false,
@@ -76,7 +76,7 @@ export function update () {
   }
 }
 
-// 删除定时任务
+// delete定时任务
 export function del () {
   return {
     // isOpen: false,

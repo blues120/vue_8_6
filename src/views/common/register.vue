@@ -52,7 +52,7 @@
         },
         dataRule: {
           email: [
-            { required: true, message: '参数名不能为空', trigger: 'blur' }
+            { required: true, message: 'key不能为空', trigger: 'blur' }
           ],
           code: [
             { required: true, message: 'param not empty', trigger: 'blur' }

@@ -5,9 +5,9 @@
         <el-input v-model="dataForm.userName" placeholder="用户名" clearable></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button @click="getDataList()">查询</el-button>
-        <el-button v-if="isAuth('sys:user:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
-        <el-button v-if="isAuth('sys:user:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
+        <el-button @click="getDataList()">query</el-button>
+        <el-button v-if="isAuth('sys:user:save')" type="primary" @click="addOrUpdateHandle()">new</el-button>
+        <el-button v-if="isAuth('sys:user:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">batch delete</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -69,10 +69,10 @@
         header-align="center"
         align="center"
         width="150"
-        label="操作">
+        label="operator">
         <template slot-scope="scope">
-          <el-button v-if="isAuth('sys:user:update')" type="text" size="small" @click="addOrUpdateHandle(scope.row.userId)">修改</el-button>
-          <el-button v-if="isAuth('sys:user:delete')" type="text" size="small" @click="deleteHandle(scope.row.userId)">删除</el-button>
+          <el-button v-if="isAuth('sys:user:update')" type="text" size="small" @click="addOrUpdateHandle(scope.row.userId)">edit</el-button>
+          <el-button v-if="isAuth('sys:user:delete')" type="text" size="small" @click="deleteHandle(scope.row.userId)">delete</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -85,7 +85,7 @@
       :total="totalPage"
       layout="total, sizes, prev, pager, next, jumper">
     </el-pagination>
-    <!-- 弹窗, 新增 / 修改 -->
+    <!-- 弹窗, new / edit -->
     <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="getDataList"></add-or-update>
   </div>
 </template>
@@ -151,19 +151,19 @@
       selectionChangeHandle (val) {
         this.dataListSelections = val
       },
-      // 新增 / 修改
+      // new / edit
       addOrUpdateHandle (id) {
         this.addOrUpdateVisible = true
         this.$nextTick(() => {
           this.$refs.addOrUpdate.init(id)
         })
       },
-      // 删除
+      // delete
       deleteHandle (id) {
         var userIds = id ? [id] : this.dataListSelections.map(item => {
           return item.userId
         })
-        this.$confirm(`make sure对[id=${userIds.join(',')}]进行[${id ? '删除' : '批量删除'}]操作?`, 'alert', {
+        this.$confirm(`make sure对[id=${userIds.join(',')}]进行[${id ? 'delete' : 'batch delete'}]operator?`, 'alert', {
           confirmButtonText: 'make sure',
           cancelButtonText: 'cancel',
           type: 'warning'

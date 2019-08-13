@@ -131,7 +131,7 @@
         return window.jQuery || window.Zepto;
     });
     /**
-     * @fileOverview Dom 操作相关
+     * @fileOverview Dom operator相关
      */
     define('dollar',[
         'dollar-third'
@@ -273,7 +273,7 @@
             })( navigator.userAgent ),
 
             /**
-             * @description  操作系统检查结果。
+             * @description  operator系统检查结果。
              *
              * * `android`  如果在android浏览器环境下，此值为对应的android版本号，否则为`undefined`。
              * * `ios` 如果在ios浏览器环境下，此值为对应的ios版本号，否则为`undefined`。
@@ -779,7 +779,7 @@
              *     resize: null;
              * });
              *
-             * // 修改后图片上传前，尝试将图片压缩到1600 * 1600
+             * // edit后图片上传前，尝试将图片压缩到1600 * 1600
              * uploader.options( 'resize', {
              *     width: 1600,
              *     height: 1600
@@ -807,7 +807,7 @@
              * 获取文件统计信息。返回一个包含一下信息的对象。
              * * `successNum` 上传成功的文件数
              * * `uploadFailNum` 上传失败的文件数
-             * * `cancelNum` 被删除的文件数
+             * * `cancelNum` 被delete的文件数
              * * `invalidNum` 无效的文件数
              * * `queueNum` 还在队列中的文件数
              * @method getStats
@@ -1460,7 +1460,7 @@
                     promise = Base.when.apply( Base, dfds );
                     key = promise.pipe ? 'pipe' : 'then';
 
-                    // 很重要不能删除。删除了会死循环。
+                    // 很重要不能delete。delete了会死循环。
                     // 保证执行顺序。让callback总是在下一个tick中执行。
                     return promise[ key ](function() {
                                 var deferred = Base.Deferred(),
@@ -1733,7 +1733,7 @@
         return Image;
     });
     /**
-     * @fileOverview 图片操作, 负责预览图片和上传前压缩图片
+     * @fileOverview 图片operator, 负责预览图片和上传前压缩图片
      */
     define('widgets/image',[
         'base',
@@ -2056,7 +2056,7 @@
             this.type = source.type || 'application';
 
             /**
-             * 文件最后修改日期
+             * 文件最后edit日期
              * @property lastModifiedDate
              * @type {int}
              * @default 当前时间戳
@@ -2085,7 +2085,7 @@
              */
             this.statusText = '';
 
-            // 存储文件状态，防止通过属性直接修改
+            // 存储文件状态，防止通过属性直接edit
             statusMap[ this.id ] = WUFile.Status.INITED;
 
             this.source = source;
@@ -2466,7 +2466,7 @@
                 me.stats = me.queue.stats;
 
                 // 如果当前不是html5运行时，那就算了。
-                // 不执行后续操作
+                // 不执行后续operator
                 if ( this.request('predict-runtime-type') !== 'html5' ) {
                     return;
                 }
@@ -3381,7 +3381,7 @@
              * @for  Uploader
              */
 
-            // 做上传操作。
+            // 做上传operator。
             _doSend: function( block ) {
                 var me = this,
                     owner = me.owner,
@@ -3701,7 +3701,7 @@
          * @property {int} [duplicate=undefined]
          * @namespace options
          * @for Uploader
-         * @description 去重， 根据文件名字、文件大小和最后修改时间来生成hash Key.
+         * @description 去重， 根据文件名字、文件大小和最后edit时间来生成hash Key.
          */
         api.addValidator( 'duplicate', function() {
             var uploader = this,
@@ -3877,7 +3877,7 @@
             this.jsreciver = jsreciver;
 
             this.destory = function() {
-                // @todo 删除池子中的所有实例
+                // @todo delete池子中的所有实例
                 return destory && destory.apply( this, arguments );
             };
 

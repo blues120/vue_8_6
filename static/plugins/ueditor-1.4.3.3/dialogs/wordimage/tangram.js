@@ -33,7 +33,7 @@ baidu.$$ = window[baidu.guid] = window[baidu.guid] || {global:{}};
 baidu.flash = baidu.flash || {};
 
 /**
- * 操作dom的方法
+ * operatordom的方法
  * @namespace baidu.dom
  */
 baidu.dom = baidu.dom || {};
@@ -64,7 +64,7 @@ baidu.g = baidu.G = baidu.dom.g;
 
 
 /**
- * 操作数组的方法
+ * operator数组的方法
  * @namespace baidu.array
  */
 
@@ -210,7 +210,7 @@ baidu.dom.insertHTML = function (element, position, html) {
 baidu.insertHTML = baidu.dom.insertHTML;
 
 /**
- * 操作flash对象的方法，包括创建flash对象、获取flash对象以及判断flash插件的版本号
+ * operatorflash对象的方法，包括创建flash对象、获取flash对象以及判断flash插件的版本号
  * @namespace baidu.swf
  */
 baidu.swf = baidu.swf || {};
@@ -246,7 +246,7 @@ baidu.swf.version = (function () {
 })();
 
 /**
- * 操作字符串的方法
+ * operator字符串的方法
  * @namespace baidu.string
  */
 baidu.string = baidu.string || {};
@@ -775,7 +775,7 @@ baidu.flash._Base = (function(){
  * @param {String} buttonUrl 按钮图片不背景
  * @param {String|Function} selectFileCallback 选择文件的回调
  * @param {String|Function} exceedFileCallback文件超出限制的最大体积时的回调
- * @param {String|Function} deleteFileCallback 删除文件的回调
+ * @param {String|Function} deleteFileCallback delete文件的回调
  * @param {String|Function} startUploadCallback 开始上传某个文件时的回调
  * @param {String|Function} uploadCompleteCallback 某个文件上传完成的回调
  * @param {String|Function} uploadErrorCallback 某个文件上传失败的回调
@@ -819,7 +819,7 @@ baidu.flash.imageUploader = baidu.flash.imageUploader || function(options){
 };
 
 /**
- * 操作原生对象的方法
+ * operator原生对象的方法
  * @namespace baidu.object
  */
 baidu.object = baidu.object || {};
@@ -915,7 +915,7 @@ baidu.flash.fileUploader = baidu.flash.fileUploader || function(options){
     };
 
     /**
-     * 执行上传操作
+     * 执行上传operator
      * @param {String} url 上传的url
      * @param {String} fieldName 上传的表单字段名
      * @param {Object} postData 键值对，上传的POST数据
@@ -934,7 +934,7 @@ baidu.flash.fileUploader = baidu.flash.fileUploader || function(options){
     };
 
     /**
-     * cancel上传操作
+     * cancel上传operator
      * @public
      * @param {Number|-1} index
      */
@@ -944,9 +944,9 @@ baidu.flash.fileUploader = baidu.flash.fileUploader || function(options){
     };
 
     /**
-     * 删除文件
+     * delete文件
      * @public
-     * @param {Number|Array} [index] 要删除的index，不传则全部删除
+     * @param {Number|Array} [index] 要delete的index，不传则全部delete
      * @param {Function} callBack
      * */
     me.deleteFile = function(index, callBack){
@@ -1063,7 +1063,7 @@ baidu.sio._createScriptTag = function(scr, url, charset){
 };
 
 /**
- * 删除script的属性，再删除script标签，以解决修复内存泄漏的问题
+ * deletescript的属性，再deletescript标签，以解决修复内存泄漏的问题
  *
  * @param {HTMLElement} src script节点
  */
@@ -1250,7 +1250,7 @@ baidu.sio.log = function(url) {
 
 
 /**
- * 操作json对象的方法
+ * operatorjson对象的方法
  * @namespace baidu.json
  */
 baidu.json = baidu.json || {};

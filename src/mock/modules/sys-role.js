@@ -74,7 +74,7 @@ export function add () {
   }
 }
 
-// 修改角色
+// edit角色
 export function update () {
   return {
     // isOpen: false,
@@ -87,7 +87,7 @@ export function update () {
   }
 }
 
-// 删除角色
+// delete角色
 export function del () {
   return {
     // isOpen: false,

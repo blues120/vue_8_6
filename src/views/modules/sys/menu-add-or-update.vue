@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    :title="!dataForm.id ? '新增' : '修改'"
+    :title="!dataForm.id ? 'new' : 'edit'"
     :close-on-click-modal="false"
     :visible.sync="visible">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
@@ -139,10 +139,10 @@
           })
         }).then(() => {
           if (!this.dataForm.id) {
-            // 新增
+            // new
             this.menuListTreeSetCurrentNode()
           } else {
-            // 修改
+            // edit
             this.$http({
               url: this.$http.adornUrl(`/sys/menu/info/${this.dataForm.id}`),
               method: 'get',

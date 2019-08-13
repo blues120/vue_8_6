@@ -77,7 +77,7 @@ export function addConfig () {
   }
 }
 
-// 删除文件
+// delete文件
 export function del () {
   return {
     // isOpen: false,

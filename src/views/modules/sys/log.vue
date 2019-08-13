@@ -2,10 +2,10 @@
   <div class="mod-log">
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
       <el-form-item>
-        <el-input v-model="dataForm.key" placeholder="用户名／用户操作" clearable></el-input>
+        <el-input v-model="dataForm.key" placeholder="用户名／用户operator" clearable></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button @click="getDataList()">查询</el-button>
+        <el-button @click="getDataList()">query</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -30,7 +30,7 @@
         prop="operation"
         header-align="center"
         align="center"
-        label="用户操作">
+        label="用户operator">
       </el-table-column>
       <el-table-column
         prop="method"

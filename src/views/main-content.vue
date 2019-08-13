@@ -82,11 +82,11 @@
           this.$router.push({ name: tab[0].name })
         }
       },
-      // tabs, 删除tab
+      // tabs, deletetab
       removeTabHandle (tabName) {
         this.mainTabs = this.mainTabs.filter(item => item.name !== tabName)
         if (this.mainTabs.length >= 1) {
-          // 当前选中tab被删除
+          // 当前选中tab被delete
           if (tabName === this.mainTabsActiveName) {
             this.$router.push({ name: this.mainTabs[this.mainTabs.length - 1].name }, () => {
               this.mainTabsActiveName = this.$route.name

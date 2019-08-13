@@ -2,7 +2,7 @@
   <div class="mod-menu">
     <el-form :inline="true" :model="dataForm">
       <el-form-item>
-        <el-button v-if="isAuth('sys:menu:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
+        <el-button v-if="isAuth('sys:menu:save')" type="primary" @click="addOrUpdateHandle()">new</el-button>
       </el-form-item>
     </el-form>
 
@@ -70,14 +70,14 @@
         header-align="center"
         align="center"
         width="150"
-        label="操作">
+        label="operator">
         <template slot-scope="scope">
-          <el-button v-if="isAuth('sys:menu:update')" type="text" size="small" @click="addOrUpdateHandle(scope.row.menuId)">修改</el-button>
-          <el-button v-if="isAuth('sys:menu:delete')" type="text" size="small" @click="deleteHandle(scope.row.menuId)">删除</el-button>
+          <el-button v-if="isAuth('sys:menu:update')" type="text" size="small" @click="addOrUpdateHandle(scope.row.menuId)">edit</el-button>
+          <el-button v-if="isAuth('sys:menu:delete')" type="text" size="small" @click="deleteHandle(scope.row.menuId)">delete</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <!-- 弹窗, 新增 / 修改 -->
+    <!-- 弹窗, new / edit -->
     <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="getDataList"></add-or-update>
   </div>
 </template>
@@ -113,16 +113,16 @@
           this.dataListLoading = false
         })
       },
-      // 新增 / 修改
+      // new / edit
       addOrUpdateHandle (id) {
         this.addOrUpdateVisible = true
         this.$nextTick(() => {
           this.$refs.addOrUpdate.init(id)
         })
       },
-      // 删除
+      // delete
       deleteHandle (id) {
-        this.$confirm(`make sure对[id=${id}]进行[删除]操作?`, 'alert', {
+        this.$confirm(`make sure对[id=${id}]进行[delete]operator?`, 'alert', {
           confirmButtonText: 'make sure',
           cancelButtonText: 'cancel',
           type: 'warning'

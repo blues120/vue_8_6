@@ -4,8 +4,8 @@
  */
 /**************************alert********************************
  * 所有被注释的配置项均为UEditor默认值。
- * 修改默认配置请首先确保已经完全明确该参数的真实用途。
- * 主要有两种修改方案，一种是cancel此处注释，然后修改成对应参数；另一种是在实例化编辑器时传入对应参数。
+ * edit默认配置请首先确保已经完全明确该参数的真实用途。
+ * 主要有两种edit方案，一种是cancel此处注释，然后edit成对应参数；另一种是在实例化编辑器时传入对应参数。
  * 当升级编辑器时，可直接使用旧版配置文件替换新版配置文件,不用担心旧版配置文件中因缺少新功能所需的参数而导致脚本报错。
  **************************alert********************************/
 
@@ -66,7 +66,7 @@
         //针对getAllHtml方法，会在对应的head标签中增加该编码设置。
         //,charset:"utf-8"
 
-        //若实例化编辑器的页面手动修改的domain，此处需要设置为true
+        //若实例化编辑器的页面手动edit的domain，此处需要设置为true
         //,customDomain:false
 
         //常用配置项目
@@ -94,7 +94,7 @@
 
         //,readonly : false //编辑器初始化结束后,编辑区域是否是只读的，默认是false
 
-        //,autoClearEmptyNode : true //getContent时，是否删除空的inlineElement节点（包括嵌套的情况）
+        //,autoClearEmptyNode : true //getContent时，是否delete空的inlineElement节点（包括嵌套的情况）
 
         //启用自动保存
         //,enableAutoSave: true
@@ -103,7 +103,7 @@
 
         //,fullscreen : false //是否开启初始化时即全屏，默认关闭
 
-        //,imagePopup:true      //图片操作的浮层开关，默认打开
+        //,imagePopup:true      //图片operator的浮层开关，默认打开
 
         //,autoSyncData:true //自动同步编辑器要提交的数据
         //,emotionLocalization:false //是否开启表情本地化，默认关闭。若要开启请确保emotion文件夹下包含官网提供的images表情文件夹
@@ -119,7 +119,7 @@
         //        node.setStyle();
         //    }
         //    return {
-        //        //直接删除及其字节点内容
+        //        //直接delete及其字节点内容
         //        '-' : 'script style object iframe embed input select',
         //        'p': {$:{}},
         //        'br':{$:{}},
@@ -263,7 +263,7 @@
         //,tabNode:'&nbsp;'
 
         //removeFormat
-        //清除格式时可以删除的标签和属性
+        //清除格式时可以delete的标签和属性
         //removeForamtTags标签
         //,removeFormatTags:'b,big,code,del,dfn,em,font,i,ins,kbd,q,samp,small,span,strike,strong,sub,sup,tt,u,var'
         //removeFormatAttributes属性
@@ -355,7 +355,7 @@
         //,allowDivTransToP:true      //允许进入编辑器的div标签自动变成p标签
         //,rgb2Hex:true               //默认产出的数据中的color自动从rgb格式变成16进制格式
 
-		// xss 过滤是否开启,inserthtml等操作
+		// xss 过滤是否开启,inserthtml等operator
 		,xssFilterRules: true
 		//input xss过滤
 		,inputXssFilter: true

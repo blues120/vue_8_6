@@ -60,7 +60,7 @@ function initChartsTypeView () {
 
 }
 
-//渲染table， 以便用户修改数据
+//渲染table， 以便用户edit数据
 function renderTable ( table ) {
 
     var tableHtml = [];

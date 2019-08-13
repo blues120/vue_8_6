@@ -49,7 +49,7 @@ export function info () {
   }
 }
 
-// 修改密码
+// edit密码
 export function updatePassword () {
   return {
     // isOpen: false,
@@ -75,7 +75,7 @@ export function add () {
   }
 }
 
-// 修改用户
+// edit用户
 export function update () {
   return {
     // isOpen: false,
@@ -88,7 +88,7 @@ export function update () {
   }
 }
 
-// 删除用户
+// delete用户
 export function del () {
   return {
     // isOpen: false,

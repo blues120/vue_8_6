@@ -95,7 +95,7 @@ var dataList = [
     'menuId': 8,
     'parentId': 6,
     'parentName': '定时任务',
-    'name': '新增',
+    'name': 'new',
     'url': null,
     'perms': 'sys:schedule:save',
     'type': 2,
@@ -108,7 +108,7 @@ var dataList = [
     'menuId': 9,
     'parentId': 6,
     'parentName': '定时任务',
-    'name': '修改',
+    'name': 'edit',
     'url': null,
     'perms': 'sys:schedule:update',
     'type': 2,
@@ -121,7 +121,7 @@ var dataList = [
     'menuId': 10,
     'parentId': 6,
     'parentName': '定时任务',
-    'name': '删除',
+    'name': 'delete',
     'url': null,
     'perms': 'sys:schedule:delete',
     'type': 2,
@@ -199,7 +199,7 @@ var dataList = [
     'menuId': 16,
     'parentId': 2,
     'parentName': '管理员列表',
-    'name': '新增',
+    'name': 'new',
     'url': null,
     'perms': 'sys:user:save,sys:role:select',
     'type': 2,
@@ -212,7 +212,7 @@ var dataList = [
     'menuId': 17,
     'parentId': 2,
     'parentName': '管理员列表',
-    'name': '修改',
+    'name': 'edit',
     'url': null,
     'perms': 'sys:user:update,sys:role:select',
     'type': 2,
@@ -225,7 +225,7 @@ var dataList = [
     'menuId': 18,
     'parentId': 2,
     'parentName': '管理员列表',
-    'name': '删除',
+    'name': 'delete',
     'url': null,
     'perms': 'sys:user:delete',
     'type': 2,
@@ -251,7 +251,7 @@ var dataList = [
     'menuId': 20,
     'parentId': 3,
     'parentName': '角色管理',
-    'name': '新增',
+    'name': 'new',
     'url': null,
     'perms': 'sys:role:save,sys:menu:list',
     'type': 2,
@@ -264,7 +264,7 @@ var dataList = [
     'menuId': 21,
     'parentId': 3,
     'parentName': '角色管理',
-    'name': '修改',
+    'name': 'edit',
     'url': null,
     'perms': 'sys:role:update,sys:menu:list',
     'type': 2,
@@ -277,7 +277,7 @@ var dataList = [
     'menuId': 22,
     'parentId': 3,
     'parentName': '角色管理',
-    'name': '删除',
+    'name': 'delete',
     'url': null,
     'perms': 'sys:role:delete',
     'type': 2,
@@ -303,7 +303,7 @@ var dataList = [
     'menuId': 24,
     'parentId': 4,
     'parentName': '菜单管理',
-    'name': '新增',
+    'name': 'new',
     'url': null,
     'perms': 'sys:menu:save,sys:menu:select',
     'type': 2,
@@ -316,7 +316,7 @@ var dataList = [
     'menuId': 25,
     'parentId': 4,
     'parentName': '菜单管理',
-    'name': '修改',
+    'name': 'edit',
     'url': null,
     'perms': 'sys:menu:update,sys:menu:select',
     'type': 2,
@@ -329,7 +329,7 @@ var dataList = [
     'menuId': 26,
     'parentId': 4,
     'parentName': '菜单管理',
-    'name': '删除',
+    'name': 'delete',
     'url': null,
     'perms': 'sys:menu:delete',
     'type': 2,
@@ -601,7 +601,7 @@ export function add () {
   }
 }
 
-// 修改菜单
+// edit菜单
 export function update () {
   return {
     // isOpen: false,
@@ -614,7 +614,7 @@ export function update () {
   }
 }
 
-// 删除菜单
+// delete菜单
 export function del () {
   return {
     // isOpen: false,

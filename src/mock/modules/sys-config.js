@@ -58,7 +58,7 @@ export function add () {
   }
 }
 
-// 修改参数
+// edit参数
 export function update () {
   return {
     // isOpen: false,
@@ -71,7 +71,7 @@ export function update () {
   }
 }
 
-// 删除参数
+// delete参数
 export function del () {
   return {
     // isOpen: false,

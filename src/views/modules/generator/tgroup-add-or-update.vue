@@ -1,17 +1,65 @@
 <template>
   <el-dialog
-    :title="!dataForm.id ? '新增' : '修改'"
+    :title="!dataForm.id ? 'new' : 'edit'"
     :close-on-click-modal="false"
-    :visible.sync="visible">
-    <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
-    <el-form-item label="群组名称" prop="name">
-      <el-input v-model="dataForm.name" placeholder="群组名称"></el-input>
+    :visible.sync="visible" width="60%">
+    <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="100px">
+    <el-form-item label="group name" prop="name">
+      <el-input v-model="dataForm.name" placeholder="group name" style="width: 300px"></el-input>
     </el-form-item>
-    <el-form-item label="老师用户" prop="teacherId">
-      <el-input v-model="dataForm.teacherId" placeholder="老师用户"></el-input>
+    <el-form-item label="teacher" prop="teacherId">
+      <el-row>
+        <el-col :span="12">
+          <el-select v-model="dataForm.teacherId" clearable placeholder="select teacher" @change="selectTeacher()">
+            <el-option
+              v-for="item in teacherList"
+              :key="item.userId"
+              :label="item.username"
+              :value="item.userId">
+            </el-option>
+          </el-select>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="student " prop="studentId">
+            <el-select v-model="dataForm.leaderId" clearable placeholder="select student" @change="selectTeacher()">
+              <el-option
+                v-for="item in studentList"
+                :key="item.userId"
+                :label="item.username"
+                :value="item.userId">
+              </el-option>
+            </el-select>
+          </el-form-item>
+
+        </el-col>
+      </el-row>
+
+
+
     </el-form-item>
-    <el-form-item label="组长id" prop="leaderId">
-      <el-input v-model="dataForm.leaderId" placeholder="组长id"></el-input>
+    <el-form-item label="add student in group">
+
+      <div style="text-align: center">
+        <el-transfer
+          style="text-align: left; display: inline-block"
+          v-model="value"
+          filterable
+          :left-default-checked="[]"
+          :right-default-checked="[]"
+          :titles="['Source', 'Target']"
+          :button-texts="['go left', 'go right']"
+          :format="{
+        noChecked: '${total}',
+        hasChecked: '${checked}/${total}'
+      }"
+          @change="handleChange"
+          :data="data">
+          <span slot-scope="{ option }">{{ option.key }} - {{ option.label }}</span>
+          <!--<el-button class="transfer-footer" slot="left-footer" size="small">操作</el-button>-->
+          <!--<el-button class="transfer-footer" slot="right-footer" size="small">操作</el-button>-->
+        </el-transfer>
+      </div>
+
     </el-form-item>
     <el-form-item label="" prop="createTime">
       <el-input v-model="dataForm.createTime" placeholder=""></el-input>
@@ -30,8 +78,26 @@
 <script>
   export default {
     data () {
+      const generateData = _ => {
+        const data = []
+        for (let i = 1; i <= 15; i++) {
+          data.push({
+            key: i,
+            label: `备选项 ${i}`,
+            disabled: i % 4 === 0
+          })
+        }
+        return data
+      }
       return {
+        data: generateData(),
+        value: [],
+        renderFunc (h, option) {
+          return `<span>{ option.key } - { option.label }</span>`
+        },
         visible: false,
+        teacherList: [],
+        studentList: [],
         dataForm: {
           id: 0,
           name: '',
@@ -42,13 +108,13 @@
         },
         dataRule: {
           name: [
-            { required: true, message: '群组名称不能为空', trigger: 'blur' }
+            { required: true, message: 'group name不能为空', trigger: 'blur' }
           ],
           teacherId: [
-            { required: true, message: '老师用户不能为空', trigger: 'blur' }
+            { required: true, message: 'teacher不能为空', trigger: 'blur' }
           ],
           leaderId: [
-            { required: true, message: '组长id不能为空', trigger: 'blur' }
+            { required: true, message: 'leader不能为空', trigger: 'blur' }
           ],
           createTime: [
             { required: true, message: '不能为空', trigger: 'blur' }
@@ -60,9 +126,27 @@
       }
     },
     methods: {
+      handleChange (value, direction, movedKeys) {
+        console.log(value, direction, movedKeys)
+      },
+      selectTeacher () {
+
+      },
       init (id) {
         this.dataForm.id = id || 0
         this.visible = true
+
+        this.$http({
+          url: this.$http.adornUrl(`/generator/tgroup/getTeacherAndStudent`),
+          method: 'get',
+          params: this.$http.adornParams()
+        }).then(({data}) => {
+          if (data && data.code === 0) {
+            this.teacherList = data.teacherList
+            this.studentList = data.studentList
+          }
+        })
+
         this.$nextTick(() => {
           this.$refs['dataForm'].resetFields()
           if (this.dataForm.id) {
