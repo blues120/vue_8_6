@@ -44,8 +44,8 @@
           style="text-align: left; display: inline-block"
           v-model="value"
           filterable
-          :left-default-checked="[]"
-          :right-default-checked="[]"
+          :left-default-checked="leftCheck"
+          :right-default-checked="rightCheck"
           :titles="['Source', 'Target']"
           :button-texts="['go left', 'go right']"
           :format="{
@@ -61,12 +61,12 @@
       </div>
 
     </el-form-item>
-    <el-form-item label="" prop="createTime">
-      <el-input v-model="dataForm.createTime" placeholder=""></el-input>
-    </el-form-item>
-    <el-form-item label="" prop="modifyTime">
-      <el-input v-model="dataForm.modifyTime" placeholder=""></el-input>
-    </el-form-item>
+    <!--<el-form-item label="" prop="createTime">-->
+      <!--<el-input v-model="dataForm.createTime" placeholder=""></el-input>-->
+    <!--</el-form-item>-->
+    <!--<el-form-item label="" prop="modifyTime">-->
+      <!--<el-input v-model="dataForm.modifyTime" placeholder=""></el-input>-->
+    <!--</el-form-item>-->
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="visible = false">cancel</el-button>
@@ -80,17 +80,20 @@
     data () {
       const generateData = _ => {
         const data = []
-        for (let i = 1; i <= 15; i++) {
-          data.push({
-            key: i,
-            label: `备选项 ${i}`,
-            disabled: i % 4 === 0
-          })
-        }
+        // debugger
+        // for (let i = 1; i <= this.leftInitList.size(); i++) {
+        //   let temp = this.leftInitList[i]
+        //   data.push({
+        //     key: temp.userId,
+        //     label: temp.username
+        //     // disabled: i % 4 === 0
+        //   })
+        // }
         return data
       }
       return {
         data: generateData(),
+        tempData: {},
         value: [],
         renderFunc (h, option) {
           return `<span>{ option.key } - { option.label }</span>`
@@ -98,6 +101,10 @@
         visible: false,
         teacherList: [],
         studentList: [],
+        leftCheck: [],
+        rightCheck: [],
+        leftInitList: [],
+        rightInitList: [],
         dataForm: {
           id: 0,
           name: '',
@@ -115,12 +122,6 @@
           ],
           leaderId: [
             { required: true, message: 'leader不能为空', trigger: 'blur' }
-          ],
-          createTime: [
-            { required: true, message: '不能为空', trigger: 'blur' }
-          ],
-          modifyTime: [
-            { required: true, message: '不能为空', trigger: 'blur' }
           ]
         }
       }
@@ -128,6 +129,20 @@
     methods: {
       handleChange (value, direction, movedKeys) {
         console.log(value, direction, movedKeys)
+        if (direction === 'right') {
+          for (let i = 0; i < value.length ; i++) {
+            let temp = value[i]
+            this.tempData['' + temp] = temp
+          }
+        } else {
+          for (let i = 0; i < value.length ; i++) {
+            let temp = value[i]
+            this.tempData['' + temp] = ''
+          }
+        }
+        debugger
+        console.log('zhangwei' + this.tempData)
+
       },
       selectTeacher () {
 
@@ -144,6 +159,18 @@
           if (data && data.code === 0) {
             this.teacherList = data.teacherList
             this.studentList = data.studentList
+
+            this.leftInitList = data.studentList
+            const tempData = []
+            for (let i = 0; i <= data.studentList.length - 1; i++) {
+              console.log(data.studentList[i])
+              tempData.push({
+                key: data.studentList[i].userId,
+                label: data.studentList[i].username
+                // disabled: i % 4 === 0
+              })
+            }
+            this.data = tempData
           }
         })
 
@@ -161,6 +188,17 @@
                 this.dataForm.leaderId = data.tgroup.leaderId
                 this.dataForm.createTime = data.tgroup.createTime
                 this.dataForm.modifyTime = data.tgroup.modifyTime
+
+                this.leftInitList = data.canSelectList
+                this.rightInitList = data.groupList
+                this.leftCheck = []
+                for (let i = 0; i < data.canSelectList.length(); i++) {
+                  this.leftCheck.push(data.canSelectList[i].userId)
+                }
+                this.rightCheck = []
+                for (let i = 0; i < data.groupList.length(); i++) {
+                  this.rightCheck.push(data.groupList[i].userId)
+                }
               }
             })
           }
@@ -178,8 +216,7 @@
                 'name': this.dataForm.name,
                 'teacherId': this.dataForm.teacherId,
                 'leaderId': this.dataForm.leaderId,
-                'createTime': this.dataForm.createTime,
-                'modifyTime': this.dataForm.modifyTime
+                'rightCheck': this.tempData
               })
             }).then(({data}) => {
               if (data && data.code === 0) {
