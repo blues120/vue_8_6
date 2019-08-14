@@ -83,6 +83,7 @@
   export default {
     data () {
       return {
+        groupId: 0,
         dataForm: {
           key: ''
         },
@@ -99,6 +100,11 @@
       AddOrUpdate
     },
     activated () {
+      debugger
+      this.groupId = this.$route.query.groupId
+      if (this.groupId === undefined) {
+        this.groupId = 0
+      }
       this.getDataList()
     },
     methods: {
@@ -111,6 +117,7 @@
           params: this.$http.adornParams({
             'page': this.pageIndex,
             'limit': this.pageSize,
+            'groupId': this.groupId,
             'key': this.dataForm.key
           })
         }).then(({data}) => {

@@ -67,6 +67,7 @@
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.id)">edit</el-button>
           <el-button type="text" size="small" @click="deleteHandle(scope.row.id)">delete</el-button>
+          <el-button type="text" size="small" @click="queryHandle(scope.row.id)">view</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -81,6 +82,7 @@
     </el-pagination>
     <!-- 弹窗, new / edit -->
     <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="refreshCurrPage"></add-or-update>
+
   </div>
 </template>
 
@@ -108,6 +110,12 @@
       this.getDataList()
     },
     methods: {
+      queryHandle (val) {
+        this.$router.push({
+          path: '/generator-tgroupuser',
+          query: {groupId: val}
+        })
+      },
       refreshCurrPage () {
         window.location.reload()
         this.getDataList()
