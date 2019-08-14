@@ -80,7 +80,7 @@
       layout="total, sizes, prev, pager, next, jumper">
     </el-pagination>
     <!-- 弹窗, new / edit -->
-    <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="getDataList"></add-or-update>
+    <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="refreshCurrPage"></add-or-update>
   </div>
 </template>
 
@@ -108,8 +108,14 @@
       this.getDataList()
     },
     methods: {
+      refreshCurrPage () {
+        window.location.reload()
+        this.getDataList()
+      },
       // 获取数据列表
       getDataList () {
+        // this.$forceUpdate()
+
         this.dataListLoading = true
         this.$http({
           url: this.$http.adornUrl('/generator/tgroup/list'),

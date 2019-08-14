@@ -5,7 +5,7 @@
     :visible.sync="visible" width="60%">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="100px">
     <el-form-item label="group name" prop="name">
-      <el-input v-model="dataForm.name" placeholder="group name" style="width: 300px"></el-input>
+      <el-input v-model="dataForm.name" :disabled="this.dataForm.id!=0" placeholder="group name" style="width: 300px"></el-input>
     </el-form-item>
     <el-form-item label="teacher" prop="teacherId">
       <el-row>
@@ -44,8 +44,8 @@
           style="text-align: left; display: inline-block"
           v-model="value"
           filterable
-          :left-default-checked="leftCheck"
-          :right-default-checked="rightCheck"
+          :left-default-checked="[]"
+          :right-default-checked="[]"
           :titles="['Source', 'Target']"
           :button-texts="['go left', 'go right']"
           :format="{
@@ -101,8 +101,6 @@
         visible: false,
         teacherList: [],
         studentList: [],
-        leftCheck: [],
-        rightCheck: [],
         leftInitList: [],
         rightInitList: [],
         dataForm: {
@@ -130,24 +128,25 @@
       handleChange (value, direction, movedKeys) {
         console.log(value, direction, movedKeys)
         if (direction === 'right') {
-          for (let i = 0; i < value.length ; i++) {
+          for (let i = 0; i < value.length; i++) {
             let temp = value[i]
             this.tempData['' + temp] = temp
           }
         } else {
-          for (let i = 0; i < value.length ; i++) {
+          for (let i = 0; i < value.length; i++) {
             let temp = value[i]
             this.tempData['' + temp] = ''
           }
         }
         debugger
         console.log('zhangwei' + this.tempData)
-
       },
       selectTeacher () {
 
       },
       init (id) {
+        this.$forceUpdate()
+
         this.dataForm.id = id || 0
         this.visible = true
 
@@ -170,10 +169,12 @@
                 // disabled: i % 4 === 0
               })
             }
+            console.log('one')
             this.data = tempData
           }
         })
 
+        var that = this
         this.$nextTick(() => {
           this.$refs['dataForm'].resetFields()
           if (this.dataForm.id) {
@@ -183,6 +184,7 @@
               params: this.$http.adornParams()
             }).then(({data}) => {
               if (data && data.code === 0) {
+                debugger
                 this.dataForm.name = data.tgroup.name
                 this.dataForm.teacherId = data.tgroup.teacherId
                 this.dataForm.leaderId = data.tgroup.leaderId
@@ -191,14 +193,14 @@
 
                 this.leftInitList = data.canSelectList
                 this.rightInitList = data.groupList
-                this.leftCheck = []
-                for (let i = 0; i < data.canSelectList.length(); i++) {
-                  this.leftCheck.push(data.canSelectList[i].userId)
+
+                that.value = []
+                for (let i = 0; i < data.groupList.length; i++) {
+                  that.value.push(data.groupList[i].userId)
                 }
-                this.rightCheck = []
-                for (let i = 0; i < data.groupList.length(); i++) {
-                  this.rightCheck.push(data.groupList[i].userId)
-                }
+
+                debugger
+                console.log('two' + that.leftCheck + 'right:' + that.rightCheck)
               }
             })
           }
@@ -216,7 +218,7 @@
                 'name': this.dataForm.name,
                 'teacherId': this.dataForm.teacherId,
                 'leaderId': this.dataForm.leaderId,
-                'rightCheck': this.tempData
+                'selectList': this.value
               })
             }).then(({data}) => {
               if (data && data.code === 0) {
