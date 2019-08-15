@@ -1,13 +1,13 @@
 <template>
   <div class="mod-config">
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
+      <!--<el-form-item>-->
+        <!--<el-input v-model="dataForm.key" placeholder="key" clearable></el-input>-->
+      <!--</el-form-item>-->
       <el-form-item>
-        <el-input v-model="dataForm.key" placeholder="key" clearable></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button @click="getDataList()">query</el-button>
-        <el-button v-if="isAuth('generator:tgroupuser:save')" type="primary" @click="addOrUpdateHandle()">new</el-button>
-        <el-button v-if="isAuth('generator:tgroupuser:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">batch delete</el-button>
+        <!--<el-button @click="getDataList()">query</el-button>-->
+        <!--<el-button v-if="isAuth('generator:tgroupuser:save')" type="primary" @click="addOrUpdateHandle()">new</el-button>-->
+        <!--<el-button v-if="isAuth('generator:tgroupuser:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">batch delete</el-button>-->
       </el-form-item>
     </el-form>
     <el-table
@@ -29,28 +29,28 @@
         label="primary id">
       </el-table-column>
       <el-table-column
-        prop="groupId"
+        prop="groupName"
         header-align="center"
         align="center"
-        label="群组Id">
+        label="group name">
       </el-table-column>
       <el-table-column
-        prop="userId"
+        prop="userName"
         header-align="center"
         align="center"
-        label="用户Id">
+        label="user name">
       </el-table-column>
       <el-table-column
         prop="createTime"
         header-align="center"
         align="center"
-        label="">
+        label="create time">
       </el-table-column>
       <el-table-column
         prop="modifyTime"
         header-align="center"
         align="center"
-        label="">
+        label="modify time">
       </el-table-column>
       <el-table-column
         fixed="right"
@@ -59,7 +59,7 @@
         width="150"
         label="operator">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.id)">edit</el-button>
+          <!--<el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.id)">edit</el-button>-->
           <el-button type="text" size="small" @click="deleteHandle(scope.row.id)">delete</el-button>
         </template>
       </el-table-column>
