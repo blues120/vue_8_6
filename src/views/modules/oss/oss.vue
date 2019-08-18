@@ -2,9 +2,9 @@
   <div class="mod-oss">
     <el-form :inline="true" :model="dataForm">
       <el-form-item>
-        <el-button type="primary" @click="configHandle()">云存储配置</el-button>
-        <el-button type="primary" @click="uploadHandle()">上传文件</el-button>
-        <el-button type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">batch delete</el-button>
+        <!--<el-button type="primary" @click="configHandle()">云存储配置</el-button>-->
+        <el-button type="primary" @click="uploadHandle()">upload file</el-button>
+        <!--<el-button type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">batch delete</el-button>-->
       </el-form-item>
     </el-form>
     <el-table
@@ -27,17 +27,23 @@
         label="ID">
       </el-table-column>
       <el-table-column
-        prop="url"
+        prop="fileName"
         header-align="center"
         align="center"
-        label="URL地址">
+        label="file name">
       </el-table-column>
       <el-table-column
-        prop="createDate"
+        prop="fileUrl"
+        header-align="center"
+        align="center"
+        label="URL path">
+      </el-table-column>
+      <el-table-column
+        prop="createTime"
         header-align="center"
         align="center"
         width="180"
-        label="创建时间">
+        label="create time">
       </el-table-column>
       <el-table-column
         fixed="right"
@@ -95,7 +101,7 @@
       getDataList () {
         this.dataListLoading = true
         this.$http({
-          url: this.$http.adornUrl('/sys/oss/list'),
+          url: this.$http.adornUrl('/generator/tfile/list'),
           method: 'get',
           params: this.$http.adornParams({
             'page': this.pageIndex,
@@ -146,13 +152,13 @@
         var ids = id ? [id] : this.dataListSelections.map(item => {
           return item.id
         })
-        this.$confirm(`make sure对[id=${ids.join(',')}]进行[${id ? 'delete' : 'batch delete'}]operator?`, 'alert', {
+        this.$confirm(`make sure [id=${ids.join(',')}]go [${id ? 'delete' : 'batch delete'}]operator?`, 'alert', {
           confirmButtonText: 'make sure',
           cancelButtonText: 'cancel',
           type: 'warning'
         }).then(() => {
           this.$http({
-            url: this.$http.adornUrl('/sys/oss/delete'),
+            url: this.$http.adornUrl('/generator/tfile/delete'),
             method: 'post',
             data: this.$http.adornData(ids, false)
           }).then(({data}) => {

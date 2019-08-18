@@ -3,28 +3,37 @@
     :title="!dataForm.id ? 'new' : 'edit'"
     :close-on-click-modal="false"
     :visible.sync="visible">
-    <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
-    <el-form-item label="任务名称" prop="name">
-      <el-input v-model="dataForm.name" placeholder="任务名称"></el-input>
+    <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="120px">
+    <el-form-item label="task name" prop="name">
+      <el-input v-model="dataForm.name" placeholder="task name"></el-input>
     </el-form-item>
-    <el-form-item label="状态开，关" prop="status">
-      <el-input v-model="dataForm.status" placeholder="状态开，关"></el-input>
-    </el-form-item>
-    <el-form-item label="文件Id" prop="fileId">
-      <el-input v-model="dataForm.fileId" placeholder="文件Id"></el-input>
-    </el-form-item>
-    <el-form-item label="创建人Id" prop="userId">
-      <el-input v-model="dataForm.userId" placeholder="创建人Id"></el-input>
-    </el-form-item>
-    <el-form-item label="群组id" prop="groupId">
-      <el-input v-model="dataForm.groupId" placeholder="群组id"></el-input>
-    </el-form-item>
-    <el-form-item label="" prop="createTime">
-      <el-input v-model="dataForm.createTime" placeholder=""></el-input>
-    </el-form-item>
-    <el-form-item label="" prop="modifyTime">
-      <el-input v-model="dataForm.modifyTime" placeholder=""></el-input>
-    </el-form-item>
+      <el-form-item label="select file" prop="fileId">
+        <el-row>
+          <el-col :span="12">
+            <el-select v-model="dataForm.fileId" clearable placeholder="select file" >
+              <el-option
+                v-for="item in fileList"
+                :key="item.id"
+                :label="item.fileName"
+                :value="item.id">
+              </el-option>
+            </el-select>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="group " prop="groupId">
+              <el-select v-model="dataForm.groupId" clearable placeholder="select group" >
+                <el-option
+                  v-for="item in groupList"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id">
+                </el-option>
+              </el-select>
+            </el-form-item>
+
+          </el-col>
+        </el-row>
+      </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="visible = false">cancel</el-button>
@@ -37,6 +46,8 @@
   export default {
     data () {
       return {
+        fileList: [],
+        groupList: [],
         visible: false,
         dataForm: {
           id: 0,
@@ -50,25 +61,13 @@
         },
         dataRule: {
           name: [
-            { required: true, message: '任务名称不能为空', trigger: 'blur' }
-          ],
-          status: [
-            { required: true, message: '状态开，关不能为空', trigger: 'blur' }
+            { required: true, message: 'not empty', trigger: 'blur' }
           ],
           fileId: [
-            { required: true, message: '文件Id不能为空', trigger: 'blur' }
-          ],
-          userId: [
-            { required: true, message: '创建人Id不能为空', trigger: 'blur' }
+            { required: true, message: 'not empty', trigger: 'blur' }
           ],
           groupId: [
-            { required: true, message: '群组id不能为空', trigger: 'blur' }
-          ],
-          createTime: [
-            { required: true, message: '不能为空', trigger: 'blur' }
-          ],
-          modifyTime: [
-            { required: true, message: '不能为空', trigger: 'blur' }
+            { required: true, message: 'not empty', trigger: 'blur' }
           ]
         }
       }
@@ -76,6 +75,17 @@
     methods: {
       init (id) {
         this.dataForm.id = id || 0
+
+        this.$http({
+          url: this.$http.adornUrl(`/generator/ttask/getFileAndGroupList`),
+          method: 'get',
+          params: this.$http.adornParams()
+        }).then(({data}) => {
+          if (data && data.code === 0) {
+            this.fileList = data.fileList
+            this.groupList = data.groupList
+          }
+        })
         this.visible = true
         this.$nextTick(() => {
           this.$refs['dataForm'].resetFields()

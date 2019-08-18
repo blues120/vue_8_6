@@ -1,13 +1,13 @@
 <template>
   <div class="mod-config">
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
+      <!--<el-form-item>-->
+        <!--<el-input v-model="dataForm.key" placeholder="key" clearable></el-input>-->
+      <!--</el-form-item>-->
       <el-form-item>
-        <el-input v-model="dataForm.key" placeholder="key" clearable></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button @click="getDataList()">query</el-button>
+        <!--<el-button @click="getDataList()">query</el-button>-->
         <el-button v-if="isAuth('generator:ttask:save')" type="primary" @click="addOrUpdateHandle()">new</el-button>
-        <el-button v-if="isAuth('generator:ttask:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">batch delete</el-button>
+        <!--<el-button v-if="isAuth('generator:ttask:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">batch delete</el-button>-->
       </el-form-item>
     </el-form>
     <el-table
@@ -32,43 +32,43 @@
         prop="name"
         header-align="center"
         align="center"
-        label="任务名称">
+        label="task name">
       </el-table-column>
       <el-table-column
         prop="status"
         header-align="center"
         align="center"
-        label="状态开，关">
+        label="status">
       </el-table-column>
       <el-table-column
         prop="fileId"
         header-align="center"
         align="center"
-        label="文件Id">
+        label="file Id">
       </el-table-column>
       <el-table-column
-        prop="userId"
+        prop="userName"
         header-align="center"
         align="center"
-        label="创建人Id">
+        label="create name">
       </el-table-column>
       <el-table-column
-        prop="groupId"
+        prop="groupName"
         header-align="center"
         align="center"
-        label="群组id">
+        label="group name">
       </el-table-column>
       <el-table-column
         prop="createTime"
         header-align="center"
         align="center"
-        label="">
+        label="create time">
       </el-table-column>
       <el-table-column
         prop="modifyTime"
         header-align="center"
         align="center"
-        label="">
+        label="modify time">
       </el-table-column>
       <el-table-column
         fixed="right"
@@ -169,7 +169,7 @@
         var ids = id ? [id] : this.dataListSelections.map(item => {
           return item.id
         })
-        this.$confirm(`make sure对[id=${ids.join(',')}]进行[${id ? 'delete' : 'batch delete'}]operator?`, 'alert', {
+        this.$confirm(`make sure [id=${ids.join(',')}] go [${id ? 'delete' : 'batch delete'}]operator?`, 'alert', {
           confirmButtonText: 'make sure',
           cancelButtonText: 'cancel',
           type: 'warning'

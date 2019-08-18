@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title="上传文件"
+    title="upload file"
     :close-on-click-modal="false"
     @close="closeHandle"
     :visible.sync="visible">
@@ -13,8 +13,8 @@
       :file-list="fileList"
       style="text-align: center;">
       <i class="el-icon-upload"></i>
-      <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-      <div class="el-upload__tip" slot="tip">只支持jpg、png、gif格式的图片！</div>
+      <div class="el-upload__text">drag file to here，or<em>click</em></div>
+      <div class="el-upload__tip" slot="tip">！</div>
     </el-upload>
   </el-dialog>
 </template>
@@ -49,7 +49,7 @@
         this.successNum++
         if (response && response.code === 0) {
           if (this.num === this.successNum) {
-            this.$confirm('operator成功, 是否继续operator?', 'alert', {
+            this.$confirm('operator success, is need operator?', 'alert', {
               confirmButtonText: 'make sure',
               cancelButtonText: 'cancel',
               type: 'warning'
