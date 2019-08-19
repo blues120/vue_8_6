@@ -19,7 +19,7 @@
         <el-input v-model="dataForm.code" placeholder="email verify code"></el-input>
       </el-form-item>
 
-      <el-form-item label="昵称" prop="username">
+      <el-form-item label="nickName" prop="username">
         <el-input v-model="dataForm.username" placeholder="英文+数字"></el-input>
       </el-form-item>
       <el-form-item label="password" prop="password">
