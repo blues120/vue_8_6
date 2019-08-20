@@ -15,27 +15,12 @@
           <div id="J_chartLineBox" class="chart-box"></div>
         </el-card>
       </el-col>
-      <el-col :span="24">
-        <el-card>
-          <div id="J_chartBarBox" class="chart-box"></div>
-        </el-card>
-      </el-col>
-      <el-col :span="12">
-        <el-card>
-          <div id="J_chartPieBox" class="chart-box"></div>
-        </el-card>
-      </el-col>
-      <el-col :span="12">
-        <el-card>
-          <div id="J_chartScatterBox" class="chart-box"></div>
-        </el-card>
-      </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
-  import echarts from 'echarts'
+  var echarts = require('echarts')
   export default {
     data () {
       return {

@@ -1,12 +1,23 @@
 <template>
-    <div id="father">
-      <div id="son" style="width: 500px;height: 500px">
-        <div id="main"></div>
-      </div>
-    </div>
+  <div class="mod-demo-echarts">
+    <el-alert
+      title="alert："
+      type="warning"
+      :closable="false">
+    </el-alert>
+
+    <el-row :gutter="20">
+      <el-col :span="24">
+        <el-card>
+          <div id="J_chartLineBox" class="chart-box"></div>
+        </el-card>
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
 <script>
+  var echarts = require('echarts')
   export default {
     data () {
       return {
@@ -139,7 +150,7 @@
           ]
         }
 
-        this.chartLine = echarts.init(document.getElementById('main'))
+        this.chartLine = echarts.init(document.getElementById('J_chartLineBox'))
         this.chartLine.setOption(option)
         window.addEventListener('resize', () => {
           this.chartLine.resize()
