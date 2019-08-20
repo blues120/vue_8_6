@@ -79,6 +79,7 @@
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.id)">edit</el-button>
           <el-button type="text" size="small" @click="deleteHandle(scope.row.id)">delete</el-button>
+          <el-button type="text" size="small" @click="viewHandle(scope.row.id)">view</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -162,6 +163,12 @@
         this.addOrUpdateVisible = true
         this.$nextTick(() => {
           this.$refs.addOrUpdate.init(id)
+        })
+      },
+      viewHandle (id) {
+        this.$router.push({
+          path: '/taskechart',
+          query: {taskId: id}
         })
       },
       // delete
