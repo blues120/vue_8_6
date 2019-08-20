@@ -15,12 +15,27 @@
           <div id="J_chartLineBox" class="chart-box"></div>
         </el-card>
       </el-col>
+      <el-col :span="24">
+        <el-card>
+          <div id="J_chartBarBox" class="chart-box"></div>
+        </el-card>
+      </el-col>
+      <el-col :span="12">
+        <el-card>
+          <div id="J_chartPieBox" class="chart-box"></div>
+        </el-card>
+      </el-col>
+      <el-col :span="12">
+        <el-card>
+          <div id="J_chartScatterBox" class="chart-box"></div>
+        </el-card>
+      </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
-  var echarts = require('echarts')
+  import echarts from 'echarts'
   export default {
     data () {
       return {
@@ -61,6 +76,16 @@
           'tooltip': {
             'trigger': 'axis'
           },
+          'toolbox': {
+            show: true,
+            feature: {
+              mark: {show: true},
+              dataView: {readOnly: false},
+              magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+              restore: {show: true},
+              saveAsImage: {show: true}
+            }
+          },
           'legend': {
             'data': [ '邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎' ]
           },
@@ -69,11 +94,6 @@
             'right': '4%',
             'bottom': '3%',
             'containLabel': true
-          },
-          'toolbox': {
-            'feature': {
-              'saveAsImage': { }
-            }
           },
           'xAxis': {
             'type': 'category',

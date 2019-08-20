@@ -66,14 +66,14 @@
             },
             formatter: function (params, ticket, callback) {
               console.log(params)
-              var res = 'Function formatter : <br/>' + params[0].name
+              var res = ' ' + params[0].name
               for (var i = 0, l = params.length; i < l; i++) {
                 res += '<br/>' + params[i].seriesName + ' : ' + params[i].value
               }
               setTimeout(function () {
                 // 仅为了模拟异步回调
                 callback(ticket, res)
-              }, 1000)
+              }, 500)
               return 'loading'
             }
             // formatter: "Template formatter: <br/>{b}<br/>{a}:{c}<br/>{a1}:{c1}"
@@ -81,12 +81,27 @@
           toolbox: {
             show: true,
             feature: {
-              mark: {show: true},
+              mark: {
+                show: true,
+                title: {
+                  mark: '辅助线开关',
+                  markUndo: '删除辅助线',
+                  markClear: '清空辅助线'
+                },
+                lineStyle: {
+                  width: 2,
+                  color: '#1e90ff',
+                  type: 'dashed'
+                }},
               dataView: {show: true, readOnly: false},
               magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
               restore: {show: true},
               saveAsImage: {show: true}
             }
+
+          },
+          'legend': {
+            'data': ['坐标轴触发1', '坐标轴触发2', '数据项触发1', '数据项触发2']
           },
           calculable: true,
           xAxis: {
@@ -175,5 +190,23 @@
   #son {
     /*background-color: green;*/
 
+  }
+</style>
+<style lang="scss">
+  .mod-demo-echarts {
+    > .el-alert {
+      margin-bottom: 10px;
+    }
+    > .el-row {
+      margin-top: -10px;
+      margin-bottom: -10px;
+      .el-col {
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+    }
+    .chart-box {
+      min-height: 400px;
+    }
   }
 </style>
