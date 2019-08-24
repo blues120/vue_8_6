@@ -17,7 +17,9 @@
 </template>
 
 <script>
-  var echarts = require('echarts')
+  // debugger
+  // 引入
+  let echarts = require('echarts')
   export default {
     data () {
       return {
@@ -28,7 +30,6 @@
       }
     },
     mounted () {
-      debugger
       this.taskId = this.$route.query.taskId
       if (this.taskId === undefined) {
         this.taskId = 0
@@ -48,7 +49,10 @@
             'subtext': ''
           },
           tooltip: {
-            trigger: 'item'
+            trigger: 'item',
+            formatter: function (val) {
+              // debugger
+            }
           },
           dataZoom: {
             show: true,
@@ -83,7 +87,7 @@
           legend: {
             data: []
           },
-          calculable: true,
+          calculable: false,
           xAxis: {
             data: []
           },
@@ -94,11 +98,38 @@
 
           ]
         }
-
+        debugger
         this.chartLine = echarts.init(document.getElementById('J_chartLineBox'))
         this.chartLine.setOption(this.option)
         window.addEventListener('resize', () => {
           this.chartLine.resize()
+        })
+
+// 处理点击事件并且跳转到相应的百度搜索页面
+//         'click'、'dblclick'、'mousedown'、'mousemove'、'mouseup'、'mouseover'、'mouseout'、'globalout'、'contextmenu'
+        this.chartLine.on('globalout', function (params) {
+          // debugger
+          console.log(params)
+        })
+        this.chartLine.on('contextmenu', function (params) {
+          // debugger
+          console.log(params)
+        })
+        this.chartLine.on('mousemove', function (params) {
+          // debugger
+          console.log(params)
+        })
+
+        // this.chartLine.
+        // 点击
+        this.chartLine.getZr().on('click', params => {
+          debugger
+          console.log(params)
+          // const pointInPixel = [params.offsetX, params.offsetY]
+          // if (myChart.containPixel('grid', pointInPixel)) {
+          //   let xIndex = myChart.convertFromPixel({ seriesIndex: 0 }, [params.offsetX, params.offsetY])[0]
+          //   alert(xIndex)
+          // }
         })
 
         this.$http({
@@ -113,7 +144,6 @@
             this.option.xAxis.data = data.xAxis
             this.option.series.push(data.series)
             this.option.title.text = data.group.name
-            debugger
             this.chartLine.setOption(this.option)
           }
         })
