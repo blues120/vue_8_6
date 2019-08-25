@@ -9,7 +9,10 @@
     <el-row :gutter="20">
       <el-col :span="24">
         <el-card>
-          <div id="J_chartLineBox" class="chart-box"></div>
+          <div id="J_chartLineBox" class="chart-box">
+            <canvas id="myCanvas" resize style="width: 100%;height: 100%;"></canvas>
+          </div>
+
         </el-card>
       </el-col>
     </el-row>
@@ -18,6 +21,7 @@
 
 <script>
   var echarts = require('echarts')
+  var paper = require('paper')
   export default {
     data () {
       return {
@@ -28,7 +32,6 @@
       }
     },
     mounted () {
-      debugger
       this.taskId = this.$route.query.taskId
       if (this.taskId === undefined) {
         this.taskId = 0
@@ -100,7 +103,37 @@
         window.addEventListener('resize', () => {
           this.chartLine.resize()
         })
+        debugger
+        var canvas = document.getElementById('myCanvas')
+        paper.setup(canvas)
+        var shapesLayer = new paper.Layer()
+        // var path
+        var point, length
+        var tool = new paper.Tool()
+        tool.minDistance = 10
+        tool.onMouseDown = function (event) {
+          point = event.point
+          length = shapesLayer.children.length
+        }
+        tool.onMouseDrag = function (event) {
+          var topLeft = new paper.Point(point)
+          var rectSize = new paper.Size((event.point.x - point.x), (event.point.y - point.y))
+          var rect = new paper.Rectangle(topLeft, rectSize)
+          var path = new paper.Path.Rectangle(rect, 0)
+          path.strokeColor = 'black'
+        /* path.dashArray = [5, 1]; */
+          if (shapesLayer.children.length >= (length + 2) && shapesLayer.children.length >= 2) {
+            shapesLayer.removeChildren(shapesLayer.children.length - 2, shapesLayer.children.length - 1)
+          }
+        }
 
+      // this.chartLine.getZr().on('click', params => {
+      //   const pointInPixel = [params.offsetX, params.offsetY]
+      //   if (this.chartLine.containPixel('grid', pointInPixel)) {
+      //     let xIndex = this.chartLine.convertFromPixel({ seriesIndex: 0 }, [params.offsetX, params.offsetY])[0]
+      //     alert(xIndex)
+      //   }
+      // })
         this.$http({
           url: this.$http.adornUrl(`/generator/ttask/getTaskEchartData`),
           method: 'get',
@@ -113,7 +146,6 @@
             this.option.xAxis.data = data.xAxis
             this.option.series.push(data.series)
             this.option.title.text = data.group.name
-            debugger
             this.chartLine.setOption(this.option)
           }
         })
