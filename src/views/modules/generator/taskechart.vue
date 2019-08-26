@@ -10,7 +10,7 @@
       <el-col :span="24">
         <el-card>
           <div id="J_chartLineBox" class="chart-box">
-            <canvas id="myCanvas" resize style="width: 100%;height: 100%;"></canvas>
+            <!--<canvas id="myCanvas" resize style="width: 100%;height: 100%;"></canvas>-->
           </div>
 
         </el-card>
@@ -21,7 +21,7 @@
 
 <script>
   var echarts = require('echarts')
-  var paper = require('paper')
+  // var paper = require('paper')
   export default {
     data () {
       return {
@@ -103,29 +103,29 @@
         window.addEventListener('resize', () => {
           this.chartLine.resize()
         })
-        debugger
-        var canvas = document.getElementById('myCanvas')
-        paper.setup(canvas)
-        var shapesLayer = new paper.Layer()
-        // var path
-        var point, length
-        var tool = new paper.Tool()
-        tool.minDistance = 10
-        tool.onMouseDown = function (event) {
-          point = event.point
-          length = shapesLayer.children.length
-        }
-        tool.onMouseDrag = function (event) {
-          var topLeft = new paper.Point(point)
-          var rectSize = new paper.Size((event.point.x - point.x), (event.point.y - point.y))
-          var rect = new paper.Rectangle(topLeft, rectSize)
-          var path = new paper.Path.Rectangle(rect, 0)
-          path.strokeColor = 'black'
-        /* path.dashArray = [5, 1]; */
-          if (shapesLayer.children.length >= (length + 2) && shapesLayer.children.length >= 2) {
-            shapesLayer.removeChildren(shapesLayer.children.length - 2, shapesLayer.children.length - 1)
-          }
-        }
+        // debugger
+        // var canvas = document.getElementById('myCanvas')
+        // paper.setup(canvas)
+        // var shapesLayer = new paper.Layer()
+        // // var path
+        // var point, length
+        // var tool = new paper.Tool()
+        // tool.minDistance = 10
+        // tool.onMouseDown = function (event) {
+        //   point = event.point
+        //   length = shapesLayer.children.length
+        // }
+        // tool.onMouseDrag = function (event) {
+        //   var topLeft = new paper.Point(point)
+        //   var rectSize = new paper.Size((event.point.x - point.x), (event.point.y - point.y))
+        //   var rect = new paper.Rectangle(topLeft, rectSize)
+        //   var path = new paper.Path.Rectangle(rect, 0)
+        //   path.strokeColor = 'black'
+        // /* path.dashArray = [5, 1]; */
+        //   if (shapesLayer.children.length >= (length + 2) && shapesLayer.children.length >= 2) {
+        //     shapesLayer.removeChildren(shapesLayer.children.length - 2, shapesLayer.children.length - 1)
+        //   }
+        // }
 
       // this.chartLine.getZr().on('click', params => {
       //   const pointInPixel = [params.offsetX, params.offsetY]
