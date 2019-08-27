@@ -142,10 +142,48 @@
           })
         }).then(({data}) => {
           if (data && data.code === 0) {
+            data.legend.push('test')
             this.option.legend.data = data.legend
             this.option.xAxis.data = data.xAxis
             this.option.series.push(data.series)
             this.option.title.text = data.group.name
+            for (let i = 0; i < 30; i += 0.1) {
+              var tempObj = {}
+              tempObj['name'] = 'test' + i
+              tempObj['type'] = 'line'
+
+              var color = {}
+              color['color'] = '#f3f3f3'
+
+              var lineStyle = {}
+              lineStyle['lineStyle'] = color
+
+              var normal = {}
+              normal['color'] = color
+              normal['lineStyle'] = lineStyle
+
+              var itemStyle = {}
+              itemStyle['normal'] = normal
+              debugger
+              tempObj['itemStyle'] = itemStyle
+              var dataArray = []
+              for (let j = 0; j < data.xAxis.length; j++) {
+                dataArray.push(i)
+              }
+              tempObj['data'] = dataArray
+              this.option.series.push(tempObj)
+            }
+
+            // var dataArray = []
+            //
+            // dataArray.push(7.3)
+            // dataArray.push(6.3)
+            // dataArray.push(5.3)
+            // dataArray.push(4.3)
+            // dataArray.push(8.3)
+            // tempObj['data'] = dataArray
+            // this.option.series.push(tempObj)
+            console.log(this.option)
             this.chartLine.setOption(this.option)
           }
         })
