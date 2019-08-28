@@ -27,7 +27,8 @@
       return {
         chartLine: null,
         taskId: 0,
-        option: {}
+        option: {},
+        xData: []
 
       }
     },
@@ -53,14 +54,14 @@
           tooltip: {
             trigger: 'item'
           },
-          dataZoom: {
-            show: true,
-            realtime: true,
-            orient: 'vertical',   // 'horizontal'
-            x: 0,
-            start: 40,
-            end: 60
-          },
+          // dataZoom: {
+          //   show: true,
+          //   realtime: true,
+          //   orient: 'vertical',   // 'horizontal'
+          //   x: 0,
+          //   start: 40,
+          //   end: 60
+          // },
           toolbox: {
             show: true,
             feature: {
@@ -94,7 +95,12 @@
             type: 'value'
           },
           series: [
+            {
+              name: 'test',
+              type: 'line',
+              data: [6, 6, 7, 8]
 
+            }
           ]
         }
 
@@ -102,6 +108,10 @@
         this.chartLine.setOption(this.option)
         window.addEventListener('resize', () => {
           this.chartLine.resize()
+        })
+        this.chartLine.on('click', function (params) {
+          console.log(this.option)
+          console.log(params)
         })
         // debugger
         // var canvas = document.getElementById('myCanvas')
@@ -127,13 +137,25 @@
         //   }
         // }
 
-      // this.chartLine.getZr().on('click', params => {
-      //   const pointInPixel = [params.offsetX, params.offsetY]
-      //   if (this.chartLine.containPixel('grid', pointInPixel)) {
-      //     let xIndex = this.chartLine.convertFromPixel({ seriesIndex: 0 }, [params.offsetX, params.offsetY])[0]
-      //     alert(xIndex)
-      //   }
-      // })
+        // this.chartLine.getZr().on('click', params => {
+        //   const pointInPixel = [params.offsetX, params.offsetY]
+        //   if (this.chartLine.containPixel('grid', pointInPixel)) {
+        //     let xIndex = this.chartLine.convertFromPixel({ seriesIndex: 0 }, [params.offsetX, params.offsetY])
+        //     alert(xIndex)
+        //   }
+        // })
+        this.chartLine.getZr().on('mousedown', params => {
+          const pointInPixel = [params.offsetX, params.offsetY]
+          if (this.chartLine.containPixel('grid', pointInPixel)) {
+            let xIndex = this.chartLine.convertFromPixel({ seriesIndex: 0 }, [params.offsetX, params.offsetY])
+            // alert(xIndex)
+            debugger
+            console.log(this.option.series[0].data)
+            this.option.series[0].data.push(xIndex[1])
+            console.log(this.option.series[0].data)
+            this.chartLine.setOption(this.option)
+          }
+        })
         this.$http({
           url: this.$http.adornUrl(`/generator/ttask/getTaskEchartData`),
           method: 'get',
@@ -147,32 +169,33 @@
             this.option.xAxis.data = data.xAxis
             this.option.series.push(data.series)
             this.option.title.text = data.group.name
-            for (let i = 0; i < 30; i += 0.1) {
-              var tempObj = {}
-              tempObj['name'] = 'test' + i
-              tempObj['type'] = 'line'
-
-              var color = {}
-              color['color'] = '#f3f3f3'
-
-              var lineStyle = {}
-              lineStyle['lineStyle'] = color
-
-              var normal = {}
-              normal['color'] = color
-              normal['lineStyle'] = lineStyle
-
-              var itemStyle = {}
-              itemStyle['normal'] = normal
-              debugger
-              tempObj['itemStyle'] = itemStyle
-              var dataArray = []
-              for (let j = 0; j < data.xAxis.length; j++) {
-                dataArray.push(i)
-              }
-              tempObj['data'] = dataArray
-              this.option.series.push(tempObj)
-            }
+            this.xData = data.series.data
+            // for (let i = 0; i < 30; i += 0.1) {
+            //   var tempObj = {}
+            //   tempObj['name'] = 'test' + i
+            //   tempObj['type'] = 'line'
+            //
+            //   var color = {}
+            //   color['color'] = '#f3f3f3'
+            //
+            //   var lineStyle = {}
+            //   lineStyle['lineStyle'] = color
+            //
+            //   var normal = {}
+            //   normal['color'] = color
+            //   normal['lineStyle'] = lineStyle
+            //
+            //   var itemStyle = {}
+            //   itemStyle['normal'] = normal
+            //   debugger
+            //   tempObj['itemStyle'] = itemStyle
+            //   var dataArray = []
+            //   for (let j = 0; j < data.xAxis.length; j++) {
+            //     dataArray.push(i)
+            //   }
+            //   tempObj['data'] = dataArray
+            //   this.option.series.push(tempObj)
+            // }
 
             // var dataArray = []
             //
