@@ -89,6 +89,7 @@
           },
           calculable: true,
           xAxis: {
+            type: 'category',
             data: []
           },
           yAxis: {
@@ -98,7 +99,7 @@
             {
               name: 'test',
               type: 'line',
-              data: [6, 6, 7, 8]
+              data: []
 
             }
           ]
@@ -167,9 +168,10 @@
             data.legend.push('test')
             this.option.legend.data = data.legend
             this.option.xAxis.data = data.xAxis
-            this.option.series.push(data.series)
+            // this.option.series.push(data.series)
             this.option.title.text = data.group.name
             this.xData = data.series.data
+            this.option.series[0].data = this.xData
             // for (let i = 0; i < 30; i += 0.1) {
             //   var tempObj = {}
             //   tempObj['name'] = 'test' + i
