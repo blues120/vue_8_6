@@ -154,14 +154,18 @@
             this.dragFlag = false
             console.log('zhangwei:')
             console.log(this.option.series[0].markLine.data)
-            this.endPos['yAxis'] = xIndex[1]
+            var endPos = {}
+            endPos['yAxis'] = xIndex[1]
             let x = xIndex[0]
-            this.endPos['xAxis'] = this.xData[x]
+            endPos['xAxis'] = this.xData[x]
+            var starPos = {}
+            starPos['yAxis'] = this.startPos['yAxis']
+            starPos['xAxis'] = this.startPos['xAxis']
+
             var temp = []
-            var pos_1 = this.startPos
-            var pos_2 = this.endPos
-            temp.push(pos_1)
-            temp.push(pos_2)
+            temp.push(starPos)
+            temp.push(endPos)
+            console.log(this.option.series[0].markLine.data)
             console.log(this.option.series[0].markLine.data)
             this.option.series[0].markLine.data.push(temp)
             this.chartLine.setOption(this.option)
