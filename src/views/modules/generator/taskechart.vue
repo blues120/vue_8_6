@@ -28,7 +28,10 @@
         chartLine: null,
         taskId: 0,
         option: {},
-        xData: []
+        xData: [],
+        startPos: {},
+        endPos: {},
+        dragFlag: false
 
       }
     },
@@ -90,7 +93,7 @@
           calculable: true,
           xAxis: {
             type: 'category',
-            data: []
+            data: [2001, 2002, 2003, 2004, 2005, 2006, 2009]
           },
           yAxis: {
             type: 'value'
@@ -99,7 +102,36 @@
             {
               name: 'test',
               type: 'line',
-              data: []
+              data: [1, 2, 3, 4, 5, 6, 7],
+              markLine: {
+                lineStyle: {
+                  normal: {
+                    type: 'dashed'
+                  }
+                },
+                data: [
+                  [
+                    {
+                      yAxis: 3,
+                      xAxis: '2005'
+                    },
+                    {
+                      yAxis: 6,
+                      xAxis: '2009'
+                    }
+                  ],
+                  [
+                    {
+                      yAxis: 3,
+                      xAxis: '2007'
+                    },
+                    {
+                      yAxis: 6,
+                      xAxis: '2012'
+                    }
+                  ]
+                ]
+              }
 
             }
           ]
@@ -114,49 +146,48 @@
           console.log(this.option)
           console.log(params)
         })
-        // debugger
-        // var canvas = document.getElementById('myCanvas')
-        // paper.setup(canvas)
-        // var shapesLayer = new paper.Layer()
-        // // var path
-        // var point, length
-        // var tool = new paper.Tool()
-        // tool.minDistance = 10
-        // tool.onMouseDown = function (event) {
-        //   point = event.point
-        //   length = shapesLayer.children.length
-        // }
-        // tool.onMouseDrag = function (event) {
-        //   var topLeft = new paper.Point(point)
-        //   var rectSize = new paper.Size((event.point.x - point.x), (event.point.y - point.y))
-        //   var rect = new paper.Rectangle(topLeft, rectSize)
-        //   var path = new paper.Path.Rectangle(rect, 0)
-        //   path.strokeColor = 'black'
-        // /* path.dashArray = [5, 1]; */
-        //   if (shapesLayer.children.length >= (length + 2) && shapesLayer.children.length >= 2) {
-        //     shapesLayer.removeChildren(shapesLayer.children.length - 2, shapesLayer.children.length - 1)
-        //   }
-        // }
 
-        // this.chartLine.getZr().on('click', params => {
-        //   const pointInPixel = [params.offsetX, params.offsetY]
-        //   if (this.chartLine.containPixel('grid', pointInPixel)) {
-        //     let xIndex = this.chartLine.convertFromPixel({ seriesIndex: 0 }, [params.offsetX, params.offsetY])
-        //     alert(xIndex)
-        //   }
-        // })
+        this.chartLine.getZr().on('mouseup', params => {
+          const pointInPixel = [params.offsetX, params.offsetY]
+          if (this.chartLine.containPixel('grid', pointInPixel)) {
+            let xIndex = this.chartLine.convertFromPixel({ seriesIndex: 0 }, [params.offsetX, params.offsetY])
+            this.dragFlag = false
+            console.log('zhangwei:')
+            console.log(this.option.series[0].markLine.data)
+            this.endPos['yAxis'] = xIndex[1]
+            let x = xIndex[0]
+            this.endPos['xAxis'] = this.xData[x]
+            var temp = []
+            var pos_1 = this.startPos
+            var pos_2 = this.endPos
+            temp.push(pos_1)
+            temp.push(pos_2)
+            console.log(this.option.series[0].markLine.data)
+            this.option.series[0].markLine.data.push(temp)
+            this.chartLine.setOption(this.option)
+          }
+        })
+
+        this.chartLine.getZr().on('mousemove', params => {
+          const pointInPixel = [params.offsetX, params.offsetY]
+          if (this.chartLine.containPixel('grid', pointInPixel)) {
+            // let xIndex = this.chartLine.convertFromPixel({ seriesIndex: 0 }, [params.offsetX, params.offsetY])
+            this.dragFlag = true
+          }
+        })
+
         this.chartLine.getZr().on('mousedown', params => {
           const pointInPixel = [params.offsetX, params.offsetY]
           if (this.chartLine.containPixel('grid', pointInPixel)) {
             let xIndex = this.chartLine.convertFromPixel({ seriesIndex: 0 }, [params.offsetX, params.offsetY])
             // alert(xIndex)
-            debugger
-            console.log(this.option.series[0].data)
-            this.option.series[0].data.push(xIndex[1])
-            console.log(this.option.series[0].data)
-            this.chartLine.setOption(this.option)
+            this.startPos['yAxis'] = xIndex[1]
+            let x = xIndex[0]
+            this.startPos['xAxis'] = this.xData[x]
+            console.log(this.startPos)
           }
         })
+
         this.$http({
           url: this.$http.adornUrl(`/generator/ttask/getTaskEchartData`),
           method: 'get',
@@ -170,44 +201,8 @@
             this.option.xAxis.data = data.xAxis
             // this.option.series.push(data.series)
             this.option.title.text = data.group.name
-            this.xData = data.series.data
-            this.option.series[0].data = this.xData
-            // for (let i = 0; i < 30; i += 0.1) {
-            //   var tempObj = {}
-            //   tempObj['name'] = 'test' + i
-            //   tempObj['type'] = 'line'
-            //
-            //   var color = {}
-            //   color['color'] = '#f3f3f3'
-            //
-            //   var lineStyle = {}
-            //   lineStyle['lineStyle'] = color
-            //
-            //   var normal = {}
-            //   normal['color'] = color
-            //   normal['lineStyle'] = lineStyle
-            //
-            //   var itemStyle = {}
-            //   itemStyle['normal'] = normal
-            //   debugger
-            //   tempObj['itemStyle'] = itemStyle
-            //   var dataArray = []
-            //   for (let j = 0; j < data.xAxis.length; j++) {
-            //     dataArray.push(i)
-            //   }
-            //   tempObj['data'] = dataArray
-            //   this.option.series.push(tempObj)
-            // }
-
-            // var dataArray = []
-            //
-            // dataArray.push(7.3)
-            // dataArray.push(6.3)
-            // dataArray.push(5.3)
-            // dataArray.push(4.3)
-            // dataArray.push(8.3)
-            // tempObj['data'] = dataArray
-            // this.option.series.push(tempObj)
+            this.xData = data.xAxis
+            this.option.series[0].data = data.series.data
             console.log(this.option)
             this.chartLine.setOption(this.option)
           }
