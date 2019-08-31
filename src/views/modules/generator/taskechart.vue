@@ -150,25 +150,25 @@
         this.chartLine.getZr().on('mouseup', params => {
           const pointInPixel = [params.offsetX, params.offsetY]
           if (this.chartLine.containPixel('grid', pointInPixel)) {
-            let xIndex = this.chartLine.convertFromPixel({ seriesIndex: 0 }, [params.offsetX, params.offsetY])
-            this.dragFlag = false
-            console.log('zhangwei:')
-            console.log(this.option.series[0].markLine.data)
-            var endPos = {}
-            endPos['yAxis'] = xIndex[1]
-            let x = xIndex[0]
-            endPos['xAxis'] = this.xData[x]
-            var starPos = {}
-            starPos['yAxis'] = this.startPos['yAxis']
-            starPos['xAxis'] = this.startPos['xAxis']
-
-            var temp = []
-            temp.push(starPos)
-            temp.push(endPos)
-            console.log(this.option.series[0].markLine.data)
-            console.log(this.option.series[0].markLine.data)
-            this.option.series[0].markLine.data.push(temp)
-            this.chartLine.setOption(this.option)
+            // let xIndex = this.chartLine.convertFromPixel({ seriesIndex: 0 }, [params.offsetX, params.offsetY])
+            // this.dragFlag = false
+            // console.log('zhangwei:')
+            // console.log(this.option.series[0].markLine.data)
+            // var endPos = {}
+            // endPos['yAxis'] = xIndex[1]
+            // let x = xIndex[0]
+            // endPos['xAxis'] = this.xData[x]
+            // var starPos = {}
+            // starPos['yAxis'] = this.startPos['yAxis']
+            // starPos['xAxis'] = this.startPos['xAxis']
+            //
+            // var temp = []
+            // temp.push(starPos)
+            // temp.push(endPos)
+            // console.log(this.option.series[0].markLine.data)
+            // console.log(this.option.series[0].markLine.data)
+            // this.option.series[0].markLine.data.push(temp)
+            // this.chartLine.setOption(this.option)
           }
         })
 
@@ -177,6 +177,26 @@
           if (this.chartLine.containPixel('grid', pointInPixel)) {
             // let xIndex = this.chartLine.convertFromPixel({ seriesIndex: 0 }, [params.offsetX, params.offsetY])
             this.dragFlag = true
+
+            let xIndex = this.chartLine.convertFromPixel({ seriesIndex: 0 }, [params.offsetX, params.offsetY])
+            this.dragFlag = false
+            console.log('zhangwei:')
+            console.log(this.option.series[0].markLine.data)
+            var endPos = {}
+            this.endPos['yAxis'] = xIndex[1]
+            let x = xIndex[0]
+            this.endPos['xAxis'] = this.xData[x]
+            var starPos = {}
+            starPos['yAxis'] = this.startPos['yAxis']
+            starPos['xAxis'] = this.startPos['xAxis']
+
+            var temp = []
+            temp.push(starPos)
+            temp.push(this.endPos)
+            console.log(this.option.series[0].markLine.data)
+            console.log(this.option.series[0].markLine.data)
+            this.option.series[0].markLine.data.push(temp)
+            this.chartLine.setOption(this.option)
           }
         })
 
@@ -186,8 +206,10 @@
             let xIndex = this.chartLine.convertFromPixel({ seriesIndex: 0 }, [params.offsetX, params.offsetY])
             // alert(xIndex)
             this.startPos['yAxis'] = xIndex[1]
+            this.endPos['yAxis'] = xIndex[1]
             let x = xIndex[0]
             this.startPos['xAxis'] = this.xData[x]
+            this.endPos['xAxis'] = this.xData[x]
             console.log(this.startPos)
           }
         })
