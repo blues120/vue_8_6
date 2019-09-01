@@ -104,33 +104,14 @@
               type: 'line',
               data: [1, 2, 3, 4, 5, 6, 7],
               markLine: {
-                symbol:"none",
+                symbol: 'none',
                 lineStyle: {
                   normal: {
                     type: 'dashed'
                   }
                 },
                 data: [
-                  [
-                    {
-                      yAxis: 3,
-                      xAxis: '2005'
-                    },
-                    {
-                      yAxis: 6,
-                      xAxis: '2009'
-                    }
-                  ],
-                  [
-                    {
-                      yAxis: 3,
-                      xAxis: '2007'
-                    },
-                    {
-                      yAxis: 6,
-                      xAxis: '2012'
-                    }
-                  ]
+
                 ]
               }
 
