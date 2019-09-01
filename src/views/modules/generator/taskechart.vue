@@ -93,7 +93,7 @@
           calculable: true,
           xAxis: {
             type: 'category',
-            data: [2001, 2002, 2003, 2004, 2005, 2006, 2009]
+            data: []
           },
           yAxis: {
             type: 'value'
@@ -102,7 +102,7 @@
             {
               name: 'test',
               type: 'line',
-              data: [1, 2, 3, 4, 5, 6, 7],
+              data: [],
               markLine: {
                 symbol: 'none',
                 lineStyle: {
