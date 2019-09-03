@@ -124,10 +124,10 @@
         window.addEventListener('resize', () => {
           this.chartLine.resize()
         })
-        this.chartLine.on('click', function (params) {
-          console.log(this.option)
-          console.log(params)
-        })
+        // this.chartLine.on('click', function (params) {
+        //   console.log(this.option)
+        //   console.log(params)
+        // })
 
         this.chartLine.getZr().on('mousemove', params => {
           const pointInPixel = [params.offsetX, params.offsetY]
@@ -190,12 +190,16 @@
           if (this.chartLine.containPixel('grid', pointInPixel)) {
             let xIndex = this.chartLine.convertFromPixel({ seriesIndex: 0 }, [params.offsetX, params.offsetY])
             // alert(xIndex)点击的时候记录起点，终点（没有啥必要）
-            this.dragFlag = true
-            this.startPos['yAxis'] = xIndex[1]
-            // this.endPos['yAxis'] = xIndex[1]
             let x = xIndex[0]
-            this.startPos['xAxis'] = this.xData[x]
-            // this.endPos['xAxis'] = this.xData[x]
+            if (this.checkPoint(x)) {
+              this.dragFlag = true
+            } else {
+              this.dragFlag = false
+            }
+            if (this.dragFlag) {
+              this.startPos['yAxis'] = xIndex[1]
+              this.startPos['xAxis'] = this.xData[x]
+            }
             console.log(this.startPos)
           }
         })
@@ -203,8 +207,18 @@
         this.chartLine.getZr().on('mouseup', params => {
           const pointInPixel = [params.offsetX, params.offsetY]
           if (this.chartLine.containPixel('grid', pointInPixel)) {
-            // let xIndex = this.chartLine.convertFromPixel({ seriesIndex: 0 }, [params.offsetX, params.offsetY])
+            let xIndex = this.chartLine.convertFromPixel({ seriesIndex: 0 }, [params.offsetX, params.offsetY])
             // alert(xIndex)点击的时候记录起点，终点（没有啥必要）
+            let x = xIndex[0]
+            if (this.dragFlag === true) {
+              if (this.checkPoint(x)) {
+
+              } else {
+                this.$message.error('Draw line x axis can not cross')
+                this.option.series[0].markLine.data.pop()
+                this.chartLine.setOption(this.option)
+              }
+            }
             this.dragFlag = false
           }
         })
@@ -228,6 +242,37 @@
             this.chartLine.setOption(this.option)
           }
         })
+      },
+      checkPoint (value) {
+        var tempArray = this.option.series[0].markLine.data
+        for (let i = 0; i < tempArray.length; i++) {
+          var pointArray = tempArray[i]
+          var startObj = pointArray[0]
+          var endObj = pointArray[1]
+          var startX = startObj['xAxis']
+          var endX = endObj['xAxis']
+          var startIndex = 0
+          var endIndex = 0
+          for (let j = 0; j < this.xData.length; j++) {
+            if (this.xData[j] === startX) {
+              startIndex = j
+            }
+          }
+          for (let j = 0; j < this.xData.length; j++) {
+            if (this.xData[j] === endX) {
+              endIndex = j
+            }
+          }
+          if (endIndex < startIndex) {
+            var tempIndex = startIndex
+            startIndex = endIndex
+            endIndex = tempIndex
+          }
+          if (value > startIndex && value < endIndex) {
+            return false
+          }
+        }
+        return true
       }
     }
 
