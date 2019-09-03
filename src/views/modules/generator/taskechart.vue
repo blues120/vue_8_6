@@ -133,17 +133,11 @@
           const pointInPixel = [params.offsetX, params.offsetY]
           if (this.chartLine.containPixel('grid', pointInPixel)) {
             // let xIndex = this.chartLine.convertFromPixel({ seriesIndex: 0 }, [params.offsetX, params.offsetY])
-
             if (this.dragFlag === true) {
               let xIndex = this.chartLine.convertFromPixel({ seriesIndex: 0 }, [params.offsetX, params.offsetY])
               // 获取最后一个markline坐标，如果起点坐标相同，就更新终点坐标，否则插入新的markline
               var tempArray = this.option.series[0].markLine.data
-              var lastPoint = tempArray[tempArray.length - 1]
-              var lastStartObj = lastPoint[0]
-              var lastXPos = lastStartObj['xAxis']
-              var lastYPos = lastStartObj['yAxis']
 
-              console.log('zhangwei:lastXPos:' + lastXPos + 'lastYPos:' + lastYPos)
               var endPos = {}
               // this.endPos['yAxis'] = xIndex[1]
               let x = xIndex[0]
@@ -155,21 +149,36 @@
               starPos['yAxis'] = this.startPos['yAxis']
               starPos['xAxis'] = this.startPos['xAxis']
 
-              console.log('zhangwei:xAxis:' + starPos['xAxis'] + 'yAxis:' + starPos['yAxis'])
-              if ((lastXPos === this.startPos['xAxis'])) {
-                console.log('1')
-                var temp = []
-                temp.push(starPos)
-                temp.push(endPos)
-
-                this.option.series[0].markLine.data[tempArray.length - 1] = temp
+              if (tempArray.length === 0) {
+                console.log('3')
+                var tempPos2 = []
+                tempPos2.push(starPos)
+                tempPos2.push(endPos)
+                this.option.series[0].markLine.data.push(tempPos2)
               } else {
-                console.log('2')
-                var tempPos = []
-                tempPos.push(starPos)
-                tempPos.push(endPos)
-                this.option.series[0].markLine.data.push(tempPos)
+                var lastPoint = tempArray[tempArray.length - 1]
+                var lastStartObj = lastPoint[0]
+                var lastXPos = lastStartObj['xAxis']
+                var lastYPos = lastStartObj['yAxis']
+
+                console.log('zhangwei:lastXPos:' + lastXPos + 'lastYPos:' + lastYPos)
+                if ((lastXPos === this.startPos['xAxis'])) {
+                  console.log('1')
+                  var temp = []
+                  temp.push(starPos)
+                  temp.push(endPos)
+
+                  this.option.series[0].markLine.data[tempArray.length - 1] = temp
+                } else {
+                  console.log('2')
+                  var tempPos = []
+                  tempPos.push(starPos)
+                  tempPos.push(endPos)
+                  this.option.series[0].markLine.data.push(tempPos)
+                }
               }
+
+              console.log('zhangwei:xAxis:' + starPos['xAxis'] + 'yAxis:' + starPos['yAxis'])
 
               this.chartLine.setOption(this.option)
             }
@@ -194,7 +203,7 @@
         this.chartLine.getZr().on('mouseup', params => {
           const pointInPixel = [params.offsetX, params.offsetY]
           if (this.chartLine.containPixel('grid', pointInPixel)) {
-            let xIndex = this.chartLine.convertFromPixel({ seriesIndex: 0 }, [params.offsetX, params.offsetY])
+            // let xIndex = this.chartLine.convertFromPixel({ seriesIndex: 0 }, [params.offsetX, params.offsetY])
             // alert(xIndex)点击的时候记录起点，终点（没有啥必要）
             this.dragFlag = false
           }
@@ -215,7 +224,7 @@
             this.option.title.text = data.group.name
             this.xData = data.xAxis
             this.option.series[0].data = data.series.data
-            console.log(this.option)
+            console.log(this.option.series[0])
             this.chartLine.setOption(this.option)
           }
         })
